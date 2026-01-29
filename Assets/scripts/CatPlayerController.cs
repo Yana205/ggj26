@@ -9,11 +9,14 @@ public class CatPlayerController : MonoBehaviour
     [Header("Disguise")]
     [SerializeField] bool isDisguised;
 
+    [SerializeField] float moveSpeed = 5f;
+
     [Header("Interaction")]
     [SerializeField] float interactRadius = 2f;
     [SerializeField] LayerMask interactLayerMask = -1;
 
     InputAction interactAction;
+    InputAction moveAction;
 
     public bool IsDisguised => isDisguised;
 
@@ -26,6 +29,7 @@ public class CatPlayerController : MonoBehaviour
             {
                 playerMap.Enable();
                 interactAction = playerMap.FindAction("Interact");
+                moveAction = playerMap.FindAction("Move");
             }
         }
     }
@@ -37,6 +41,13 @@ public class CatPlayerController : MonoBehaviour
 
         if (interactAction != null && interactAction.WasPressedThisFrame())
             TryInteract();
+
+            if (moveAction != null)
+            {
+                Vector2 move = moveAction.ReadValue<Vector2>();
+                Vector3 delta = new Vector3(move.x, move.y, 0f) * moveSpeed * Time.deltaTime;
+                transform.position += delta;
+            }
     }
 
     void TryInteract()
