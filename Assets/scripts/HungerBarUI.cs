@@ -4,20 +4,11 @@ using UnityEngine.UI;
 public class HungerBarUI : MonoBehaviour
 {
     [SerializeField] HungerController hungerController;
-    [SerializeField] Image fillImage;
+    [SerializeField] Text hungerText;
 
-    void Start()
-    {
-        if (fillImage != null)
-        {
-            fillImage.type = Image.Type.Filled;
-            fillImage.fillMethod = Image.FillMethod.Horizontal;
-            fillImage.fillOrigin = (int)Image.OriginHorizontal.Left;
-        }
-    }
     void Update()
     {
-        if (hungerController != null && fillImage != null)
-            fillImage.fillAmount = hungerController.HungerNormalized;
+        if (hungerController != null && hungerText != null)
+            hungerText.text = Mathf.CeilToInt(hungerController.CurrentHunger).ToString();
     }
 }

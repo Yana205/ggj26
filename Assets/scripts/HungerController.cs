@@ -8,6 +8,7 @@ public class HungerController : MonoBehaviour
     float currentHunger;
 
     public float HungerNormalized => maxHunger > 0 ? Mathf.Clamp01(currentHunger / maxHunger) : 0f;
+    public float CurrentHunger => currentHunger;
 
     void Start()
     {
