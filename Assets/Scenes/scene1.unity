@@ -153,7 +153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -799, y: 401}
+  m_AnchoredPosition: {x: -799, y: 404}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &47504219
@@ -20644,8 +20644,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1739673005}
   - component: {fileID: 1739673004}
-  - component: {fileID: 1739673003}
   - component: {fileID: 1739673006}
+  - component: {fileID: 1739673007}
   m_Layer: 3
   m_Name: Cat4-brown
   m_TagString: Untagged
@@ -20653,28 +20653,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &1739673003
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1739673002}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2572579004fe94db5be96ad20f17336b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &1739673004
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20794,6 +20772,27 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.21525368, y: 0.12859185}
   m_EdgeRadius: 0
+--- !u!114 &1739673007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739673002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13c94cc670d56496bb9d0f668ab32659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::YardCatAnimator
+  idleSprites: []
+  layingSprites: []
+  sleepingSprites: []
+  frameRate: 8
+  transitionDelay: 0.5
+  minIdleTime: 4
+  maxIdleTime: 10
+  minRestTime: 5
+  maxRestTime: 12
 --- !u!1 &1895975368
 GameObject:
   m_ObjectHideFlags: 0
@@ -20804,8 +20803,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1895975371}
   - component: {fileID: 1895975370}
-  - component: {fileID: 1895975369}
   - component: {fileID: 1895975372}
+  - component: {fileID: 1895975373}
   m_Layer: 3
   m_Name: Cat5-6-StripBrownGray
   m_TagString: Untagged
@@ -20813,28 +20812,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &1895975369
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1895975368}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2572579004fe94db5be96ad20f17336b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &1895975370
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20954,6 +20931,27 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.20906368, y: 0.122401744}
   m_EdgeRadius: 0
+--- !u!114 &1895975373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895975368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13c94cc670d56496bb9d0f668ab32659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::YardCatAnimator
+  idleSprites: []
+  layingSprites: []
+  sleepingSprites: []
+  frameRate: 8
+  transitionDelay: 0.5
+  minIdleTime: 4
+  maxIdleTime: 10
+  minRestTime: 5
+  maxRestTime: 12
 --- !u!1 &2081449814
 GameObject:
   m_ObjectHideFlags: 0
@@ -21003,28 +21001,6 @@ Transform:
   - {fileID: 290067091}
   m_Father: {fileID: 720887481}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1031119903538689069
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8726472759819548838}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0d4ceb27162374872897f806eb28e75a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &1359270556793696943
 Transform:
   m_ObjectHideFlags: 0
@@ -21098,28 +21074,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &2394133047475980833
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6227429323779655338}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2572579004fe94db5be96ad20f17336b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &3196904129168089802
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21176,6 +21130,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8523900424034157502, guid: 24ce180517bf44c63a66315ef4b8432f, type: 3}
+      propertyPath: m_Radius
+      value: 0.117092185
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523900424034157502, guid: 24ce180517bf44c63a66315ef4b8432f, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.017092189
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21224,7 +21186,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4275084767941058850}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 2572579004fe94db5be96ad20f17336b, type: 2}
   m_CullingMode: 0
@@ -21322,11 +21284,23 @@ MonoBehaviour:
   - {fileID: -713648487, guid: 43bfa2b184972d548a99ff0ee9ab7a9f, type: 3}
   - {fileID: -1703221401, guid: 43bfa2b184972d548a99ff0ee9ab7a9f, type: 3}
   - {fileID: 1805319832, guid: 43bfa2b184972d548a99ff0ee9ab7a9f, type: 3}
-  layingSprites: []
-  sleepingSprites: []
+  layingSprites:
+  - {fileID: -707498125, guid: 8cf1ba603b4568043b88c79f5f508f63, type: 3}
+  - {fileID: 426390292, guid: 8cf1ba603b4568043b88c79f5f508f63, type: 3}
+  - {fileID: 1279610801, guid: 8cf1ba603b4568043b88c79f5f508f63, type: 3}
+  - {fileID: 400584776, guid: 8cf1ba603b4568043b88c79f5f508f63, type: 3}
+  - {fileID: 1409199659, guid: 8cf1ba603b4568043b88c79f5f508f63, type: 3}
+  - {fileID: 973789781, guid: 8cf1ba603b4568043b88c79f5f508f63, type: 3}
+  - {fileID: 2036105609, guid: 8cf1ba603b4568043b88c79f5f508f63, type: 3}
+  - {fileID: 320180392, guid: 8cf1ba603b4568043b88c79f5f508f63, type: 3}
+  sleepingSprites:
+  - {fileID: 1341287340, guid: f19e90b91234c9140844af2c361b9335, type: 3}
   frameRate: 8
-  minStateTime: 3
-  maxStateTime: 8
+  transitionDelay: 0.5
+  minIdleTime: 4
+  maxIdleTime: 10
+  minRestTime: 5
+  maxRestTime: 12
 --- !u!212 &6114654213229238782
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21395,8 +21369,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4443913850370362531}
   - component: {fileID: 8911903313122404338}
-  - component: {fileID: 2394133047475980833}
   - component: {fileID: 8911903313122404339}
+  - component: {fileID: 8911903313122404340}
   m_Layer: 3
   m_Name: Cat3-GrayWhite
   m_TagString: Untagged
@@ -21414,8 +21388,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1359270556793696943}
   - component: {fileID: 6114654213229238782}
-  - component: {fileID: 1031119903538689069}
   - component: {fileID: 8726472759819548839}
+  - component: {fileID: 8726472759819548840}
   m_Layer: 3
   m_Name: Cat2-black
   m_TagString: Untagged
@@ -21469,6 +21443,27 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.17412591, y: 0.10170939}
   m_EdgeRadius: 0
+--- !u!114 &8726472759819548840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8726472759819548838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13c94cc670d56496bb9d0f668ab32659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::YardCatAnimator
+  idleSprites: []
+  layingSprites: []
+  sleepingSprites: []
+  frameRate: 8
+  transitionDelay: 0.5
+  minIdleTime: 4
+  maxIdleTime: 10
+  minRestTime: 5
+  maxRestTime: 12
 --- !u!212 &8911903313122404338
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21573,6 +21568,27 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.19826473, y: 0.1318831}
   m_EdgeRadius: 0
+--- !u!114 &8911903313122404340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6227429323779655338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13c94cc670d56496bb9d0f668ab32659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::YardCatAnimator
+  idleSprites: []
+  layingSprites: []
+  sleepingSprites: []
+  frameRate: 8
+  transitionDelay: 0.5
+  minIdleTime: 4
+  maxIdleTime: 10
+  minRestTime: 5
+  maxRestTime: 12
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
