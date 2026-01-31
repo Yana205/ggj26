@@ -361,6 +361,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68810798baa9d94ea89195bafbf8af0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrandmaInteractable
+  feedingSprite: {fileID: -5480691799813768893, guid: 22b0e261b333348d2b47643f951c634f, type: 3}
+  angrySprite: {fileID: 8418176075903820413, guid: 76db89bd0c7e543b4b2fdc157fad1675, type: 3}
 --- !u!61 &104234894
 BoxCollider2D:
   m_ObjectHideFlags: 0

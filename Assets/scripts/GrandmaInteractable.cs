@@ -3,10 +3,24 @@ using UnityEngine;
 public class GrandmaInteractable : MonoBehaviour
 {
     GrandmaSpeechBubble speechBubble;
+    SpriteRenderer spriteRenderer;
+    Sprite baseSprite;
+    Coroutine spriteRoutine;
+
+    private float spriteDuration = 2f;
+
+    [Header("Feeding sprite")]
+    [SerializeField] Sprite feedingSprite;
+
+    [Header("Angry sprite")]
+    [SerializeField] Sprite angrySprite;
 
     void Start()
     {
         speechBubble = GetComponent<GrandmaSpeechBubble>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+            baseSprite = spriteRenderer.sprite;
     }
 
     public void OnPlayerInteract(CatPlayerController player)
@@ -24,6 +38,7 @@ public class GrandmaInteractable : MonoBehaviour
             {
                 speechBubble.ShowNoDisguiseMessage();
                 AudioManager.Instance.Play(AudioManager.SoundType.AngryGrandma);
+                ShowSprite(1);
             }
             return;
         }
@@ -42,6 +57,9 @@ public class GrandmaInteractable : MonoBehaviour
                 var hunger = player.GetComponent<HungerController>();
                 if (hunger != null)
                     hunger.GetFed();
+                
+                // Show feeding sprite
+                ShowSprite(0);
                 
                 // Show feeding message
                 if (speechBubble != null){
@@ -77,6 +95,9 @@ public class GrandmaInteractable : MonoBehaviour
         if (cat == null || cat.IsFed) return;
         if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
 
+        // Show feeding sprite
+        ShowSprite(0);
+
         // Show message
         if (speechBubble != null)
         {
@@ -89,6 +110,34 @@ public class GrandmaInteractable : MonoBehaviour
             GameManager.Instance.FeedYardCat(cat.CatId);
         
         cat.MarkAsFed();
+    }
+
+    void ShowSprite(int sprite_mode) // 0 = feeding, 1 = angry
+    {
+        if(spriteRenderer == null) return;
+        if(0 == sprite_mode && feedingSprite == null) return;
+        if(1 == sprite_mode && angrySprite == null) return;
+        if(spriteRoutine != null)
+        {
+            StopCoroutine(spriteRoutine);
+        }
+        if(0 == sprite_mode)
+        {
+            spriteRenderer.sprite = feedingSprite;
+        }
+        else if(1 == sprite_mode)
+        {
+            spriteRenderer.sprite = angrySprite;
+        }
+        spriteRoutine = StartCoroutine(RestoreBaseSpriteAfterDelay());
+    }
+
+    System.Collections.IEnumerator RestoreBaseSpriteAfterDelay()
+    {
+        yield return new WaitForSeconds(spriteDuration);
+        if (spriteRenderer != null && baseSprite != null)
+            spriteRenderer.sprite = baseSprite;
+        spriteRoutine = null;
     }
 
     // Find the yard cat with matching ID and mark it as fed
