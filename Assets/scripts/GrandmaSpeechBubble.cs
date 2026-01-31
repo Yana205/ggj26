@@ -77,7 +77,6 @@ public class GrandmaSpeechBubble : MonoBehaviour
         if (bubbleContainer != null)
         {
             bubbleContainer.transform.position = transform.position + bubbleOffset;
-            Debug.Log($"Bubble location {bubbleContainer.transform.position.x}, {bubbleContainer.transform.position.y}");
         }
     }
 
