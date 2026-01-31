@@ -128,14 +128,10 @@ public class CatPlayerController : MonoBehaviour
         // DEBUG: Log how many colliders were found
         Debug.Log($"[Interact] Found {hits.Length} colliders within radius {interactRadius}");
         
+        // Prioritize Grandma over yard cats when both are in range
         foreach (var hit in hits)
         {
-            // DEBUG: Log each hit
-            Debug.Log($"[Interact] Hit: {hit.gameObject.name} (Layer: {hit.gameObject.layer})");
-            
             if (hit.gameObject == gameObject) continue;
-            
-            // Check for Grandma
             var grandma = hit.GetComponent<GrandmaInteractable>();
             if (grandma != null)
             {
@@ -143,8 +139,10 @@ public class CatPlayerController : MonoBehaviour
                 grandma.OnPlayerInteract(this);
                 return;
             }
-
-            // Check for Yard Cat (to copy disguise)
+        }
+        foreach (var hit in hits)
+        {
+            if (hit.gameObject == gameObject) continue;
             var yardCat = hit.GetComponent<YardCat>();
             if (yardCat != null)
             {
@@ -152,9 +150,6 @@ public class CatPlayerController : MonoBehaviour
                 yardCat.OnPlayerInteract(this);
                 return;
             }
-            
-            // DEBUG: Object has no interactable script
-            Debug.Log($"[Interact] {hit.gameObject.name} has no GrandmaInteractable or YardCat script!");
         }
     }
 
