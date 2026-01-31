@@ -176,8 +176,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Grandma won't feed you again. \nFind items to disguise yourself and press
-    'E' to use them.\nWhen near grandma, press 'E' to ask for food."
+  m_text: "Grandma won't feed you again. \nDisguise yourself and press 'E' near cats.\nWhen
+    near grandma, press 'E' to ask for food."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
