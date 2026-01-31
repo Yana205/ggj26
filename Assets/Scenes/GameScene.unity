@@ -363,6 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GrandmaInteractable
   feedingSprite: {fileID: -5480691799813768893, guid: 22b0e261b333348d2b47643f951c634f, type: 3}
   angrySprite: {fileID: 8418176075903820413, guid: 76db89bd0c7e543b4b2fdc157fad1675, type: 3}
+  petitSprite: {fileID: 1819816676566539996, guid: 36f3e4f438ebb40a4b315bc057140cb3, type: 3}
 --- !u!61 &104234894
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -23723,17 +23724,7 @@ MonoBehaviour:
   - {fileID: -1653465737, guid: b7149e9ca0c1548079e98d3f32143dfc, type: 3}
   frameRate: 8
   transitionDelay: 0.5
-  baseMinIdleTime: 4
-  baseMaxIdleTime: 10
-  baseMinRestTime: 5
-  baseMaxRestTime: 12
-  baseWanderSpeed: 1
-  wanderRadius: 3
-  baseMinWanderTime: 2
-  baseMaxWanderTime: 5
   grandmaTransform: {fileID: 0}
-  baseApproachGrandmaChance: 0.2
-  grandmaFeedDistance: 1.5
   randomizePersonality: 1
   personality: 0
 --- !u!61 &1301550966

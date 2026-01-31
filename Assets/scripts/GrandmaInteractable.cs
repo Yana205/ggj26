@@ -17,6 +17,9 @@ public class GrandmaInteractable : MonoBehaviour
     [Header("Angry sprite")]
     [SerializeField] Sprite angrySprite;
 
+    [Header("Petit sprite")]
+    [SerializeField] Sprite petitSprite;
+
     void Start()
     {
         speechBubble = GetComponent<GrandmaSpeechBubble>();
@@ -124,8 +127,16 @@ public class GrandmaInteractable : MonoBehaviour
         // Grandma is busy - yard cat returns to place normally, not fed, no message
         if (IsBusy) return;
 
-        // Show feeding sprite for this cat's eating time
-        ShowSprite(0, cat.EatingTime);
+        
+        // Show sprite based on cat tag - petitSprite for "petit" tag, feedingSprite otherwise
+        if (cat.CompareTag("petit"))
+        {
+            ShowSprite(2, cat.EatingTime);  // petitSprite
+        }
+        else
+        {
+            ShowSprite(0, cat.EatingTime);  // feedingSprite
+        }
 
         // Show message
         if (speechBubble != null)
@@ -149,6 +160,7 @@ public class GrandmaInteractable : MonoBehaviour
         if(spriteRenderer == null) return;
         if(0 == sprite_mode && feedingSprite == null) return;
         if(1 == sprite_mode && angrySprite == null) return;
+        if(2 == sprite_mode && petitSprite == null) return;
         if(spriteRoutine != null)
         {
             StopCoroutine(spriteRoutine);
@@ -161,6 +173,10 @@ public class GrandmaInteractable : MonoBehaviour
         else if(1 == sprite_mode)
         {
             spriteRenderer.sprite = angrySprite;
+        }
+        else if(2 == sprite_mode)
+        {
+            spriteRenderer.sprite = petitSprite;
         }
         spriteRoutine = StartCoroutine(RestoreBaseSpriteAfterDelay());
     }
