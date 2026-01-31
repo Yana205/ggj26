@@ -12,12 +12,13 @@ public class YardCatAnimator : MonoBehaviour
     [SerializeField] float frameRate = 8f;
     [SerializeField] float transitionDelay = 0.5f;   // Pause before transitioning
 
-    [Header("State Timing")]
-    [SerializeField] float minIdleTime = 4f;         // Min time in idle before changing
-    [SerializeField] float maxIdleTime = 10f;        // Max time in idle before changing
-    [SerializeField] float minRestTime = 5f;         // Min time laying/sleeping
-    [SerializeField] float maxRestTime = 12f;        // Max time laying/sleeping
+    [Header("Base Timing (modified by personality)")]
+    [SerializeField] float baseMinIdleTime = 4f;
+    [SerializeField] float baseMaxIdleTime = 10f;
+    [SerializeField] float baseMinRestTime = 5f;
+    [SerializeField] float baseMaxRestTime = 12f;
 
+<<<<<<< HEAD
     [Header("Movement")]
     [SerializeField] float wanderSpeed = 1f;
     [SerializeField] float wanderRadius = 3f;        // How far cat wanders from start
@@ -26,6 +27,38 @@ public class YardCatAnimator : MonoBehaviour
     [SerializeField] Transform grandmaTransform;     // Assign Grandma in Inspector
     private float approachGrandmaChance = 0.7f;  // 70% chance to go to Grandma
     [SerializeField] float grandmaFeedDistance = 1.5f;    // How close to get to Grandma
+=======
+    [Header("Movement (modified by personality)")]
+    [SerializeField] float baseWanderSpeed = 1f;
+    [SerializeField] float wanderRadius = 3f;
+    [SerializeField] float baseMinWanderTime = 2f;
+    [SerializeField] float baseMaxWanderTime = 5f;
+    [SerializeField] Transform grandmaTransform;
+    [SerializeField] float baseApproachGrandmaChance = 0.2f;
+    [SerializeField] float grandmaFeedDistance = 1.5f;
+
+    [Header("Personality (assigned randomly at start)")]
+    [SerializeField] bool randomizePersonality = true;
+    public CatPersonality personality;
+
+    public enum CatPersonality
+    {
+        Lazy,       // More idle, laying, sleeping. Less wandering. Slower to get hungry.
+        Active,     // More wandering. Less resting. Gets hungry faster.
+        Balanced    // In between.
+    }
+
+    // Actual values (set based on personality)
+    float minIdleTime;
+    float maxIdleTime;
+    float minRestTime;
+    float maxRestTime;
+    float wanderSpeed;
+    float minWanderTime;
+    float maxWanderTime;
+    float approachGrandmaChance;
+    float wanderChance;  // Chance to wander vs rest
+>>>>>>> master
 
     SpriteRenderer spriteRenderer;
     Sprite[] currentSprites;
@@ -48,6 +81,10 @@ public class YardCatAnimator : MonoBehaviour
     bool isGoingAwayFromGrandma;
     YardCat yardCat;
 
+    // Initial delay before cat starts acting (randomized)
+    float initialDelay;
+    bool hasStarted;
+
     enum CatState { Idle, Laying, Sleeping, GettingUp, Walking }
     CatState currentState;
 
@@ -56,6 +93,17 @@ public class YardCatAnimator : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         yardCat = GetComponent<YardCat>();
         startPosition = transform.position;
+
+        // Assign random personality if enabled
+        if (randomizePersonality)
+        {
+            AssignRandomPersonality();
+        }
+        ApplyPersonalityValues();
+
+        // Random initial delay (0-10 seconds) so cats don't all start acting at once
+        initialDelay = Random.Range(0f, 10f);
+        hasStarted = false;
         
         // Start with idle
         SetState(CatState.Idle);
@@ -63,9 +111,6 @@ public class YardCatAnimator : MonoBehaviour
         
         // Randomize starting frame so cats aren't synchronized
         currentFrame = Random.Range(0, currentSprites != null ? currentSprites.Length : 1);
-        
-        // Randomize initial timer so cats don't all change at once
-        stateTimer = Random.Range(0f, minIdleTime * 0.5f);
 
         // Try to find Grandma if not assigned
         if (grandmaTransform == null)
@@ -76,12 +121,112 @@ public class YardCatAnimator : MonoBehaviour
                 grandmaTransform = grandma.transform;
             }
         }
+
+        Debug.Log($"{gameObject.name} personality: {personality} (starts in {initialDelay:F1}s)");
+    }
+
+    void AssignRandomPersonality()
+    {
+        // Get all yard cat animators and assign diverse personalities
+        var allCats = FindObjectsByType<YardCatAnimator>(FindObjectsSortMode.None);
+        int catIndex = System.Array.IndexOf(allCats, this);
+        int totalCats = allCats.Length;
+
+        if (totalCats <= 1)
+        {
+            personality = CatPersonality.Balanced;
+        }
+        else if (totalCats == 2)
+        {
+            personality = catIndex == 0 ? CatPersonality.Lazy : CatPersonality.Active;
+        }
+        else
+        {
+            // Distribute personalities: ensure at least 1 lazy, 1 active, rest balanced
+            // But randomize which cats get which role
+            float rand = Random.value;
+            if (rand < 0.3f)
+                personality = CatPersonality.Lazy;
+            else if (rand < 0.6f)
+                personality = CatPersonality.Active;
+            else
+                personality = CatPersonality.Balanced;
+        }
+    }
+
+    void ApplyPersonalityValues()
+    {
+        switch (personality)
+        {
+            case CatPersonality.Lazy:
+                // More idle/rest time, less wandering, slower hunger
+                minIdleTime = baseMinIdleTime * 1.5f;
+                maxIdleTime = baseMaxIdleTime * 2f;
+                minRestTime = baseMinRestTime * 1.5f;
+                maxRestTime = baseMaxRestTime * 2f;
+                wanderSpeed = baseWanderSpeed * 0.7f;
+                minWanderTime = baseMinWanderTime * 0.5f;
+                maxWanderTime = baseMaxWanderTime * 0.5f;
+                approachGrandmaChance = baseApproachGrandmaChance * 0.5f;  // Less likely to go to Grandma
+                wanderChance = 0.15f;  // 15% chance to wander (mostly rests)
+                // Adjust hunger timer on YardCat
+                if (yardCat != null) yardCat.SetHungerMultiplier(1.5f);  // Takes 50% longer to get hungry
+                break;
+
+            case CatPersonality.Active:
+                // Less idle/rest time, more wandering, faster hunger
+                minIdleTime = baseMinIdleTime * 0.5f;
+                maxIdleTime = baseMaxIdleTime * 0.6f;
+                minRestTime = baseMinRestTime * 0.5f;
+                maxRestTime = baseMaxRestTime * 0.5f;
+                wanderSpeed = baseWanderSpeed * 1.3f;
+                minWanderTime = baseMinWanderTime * 1.5f;
+                maxWanderTime = baseMaxWanderTime * 1.5f;
+                approachGrandmaChance = baseApproachGrandmaChance * 1.5f;  // More likely to go to Grandma
+                wanderChance = 0.5f;  // 50% chance to wander
+                // Adjust hunger timer on YardCat
+                if (yardCat != null) yardCat.SetHungerMultiplier(0.6f);  // Gets hungry 40% faster
+                break;
+
+            case CatPersonality.Balanced:
+            default:
+                // Use base values with slight randomization
+                float variance = Random.Range(0.9f, 1.1f);
+                minIdleTime = baseMinIdleTime * variance;
+                maxIdleTime = baseMaxIdleTime * variance;
+                minRestTime = baseMinRestTime * variance;
+                maxRestTime = baseMaxRestTime * variance;
+                wanderSpeed = baseWanderSpeed * variance;
+                minWanderTime = baseMinWanderTime * variance;
+                maxWanderTime = baseMaxWanderTime * variance;
+                approachGrandmaChance = baseApproachGrandmaChance;
+                wanderChance = 0.3f;  // 30% chance to wander
+                // Default hunger
+                if (yardCat != null) yardCat.SetHungerMultiplier(1f);
+                break;
+        }
     }
 
     void Update()
     {
         // Don't do anything if game is over
         if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
+
+        // Handle initial delay (cats don't all start at once)
+        if (!hasStarted)
+        {
+            initialDelay -= Time.deltaTime;
+            if (initialDelay <= 0)
+            {
+                hasStarted = true;
+            }
+            else
+            {
+                // Still animate while waiting
+                AnimateSprites();
+                return;
+            }
+        }
 
         // Handle transition delay
         if (isTransitioning)
@@ -268,12 +413,19 @@ public class YardCatAnimator : MonoBehaviour
         transform.position += direction * wanderSpeed * Time.deltaTime;
 
         // Flip sprite based on movement direction
+        // Cat sprite faces left by default, flip when moving right
         if (spriteRenderer != null)
         {
             if (direction.x < -0.1f)
+<<<<<<< HEAD
                 spriteRenderer.flipX = true;
             else if (direction.x > 0.1f)
                 spriteRenderer.flipX = false;
+=======
+                spriteRenderer.flipX = true;   // Moving left - flip (or set false if sprite faces left)
+            else if (direction.x > 0.1f)
+                spriteRenderer.flipX = false;  // Moving right - no flip (or set true if sprite faces left)
+>>>>>>> master
         }
 
         // Check if reached target
@@ -360,15 +512,21 @@ public class YardCatAnimator : MonoBehaviour
     {
         Debug.Log($"{gameObject.name} reached Grandma and wants food!");
         
-        // Get fed by Grandma
-        if (yardCat != null && !yardCat.IsFed)
+        // Get fed by Grandma (through GrandmaInteractable for speech bubble)
+        if (yardCat != null && !yardCat.IsFed && grandmaTransform != null)
         {
-            // Mark this cat as fed
-            if (GameManager.Instance != null)
+            var grandma = grandmaTransform.GetComponent<GrandmaInteractable>();
+            if (grandma != null)
             {
-                GameManager.Instance.FeedYardCat(yardCat.CatId);
+                grandma.FeedYardCat(yardCat);
             }
-            yardCat.MarkAsFed();
+            else
+            {
+                // Fallback if no GrandmaInteractable
+                if (GameManager.Instance != null)
+                    GameManager.Instance.FeedYardCat(yardCat.CatId);
+                yardCat.MarkAsFed();
+            }
         }
 
         isApproachingGrandma = false;
@@ -391,15 +549,68 @@ public class YardCatAnimator : MonoBehaviour
     {
         float rand = Random.value;
         
+<<<<<<< HEAD
         if (rand < 0.7f && walkSprites != null && walkSprites.Length > 0)
+=======
+        // Debug: uncomment to see decision making
+        // Debug.Log($"{gameObject.name}: rand={rand:F2}, wanderChance={wanderChance:F2}, hasWalkSprites={walkSprites != null && walkSprites.Length > 0}");
+        
+        if (rand < wanderChance && walkSprites != null && walkSprites.Length > 0)
+>>>>>>> master
         {
-            // 30% chance to wander
+            // Chance to wander (varies by personality)
+            StartWandering();
+        }
+        else if (rand < wanderChance)
+        {
+            // Wants to wander but no walk sprites - use idle sprites and still move
+            Debug.LogWarning($"{gameObject.name} wants to wander but no walk sprites assigned! Using idle sprites.");
             StartWandering();
         }
         else
         {
-            // 70% chance to rest
+            // Rest (idle -> laying/sleeping)
             TransitionToRandomRestState();
         }
+    }
+
+    // Debug helper - call from Inspector or use for testing
+    [ContextMenu("Force Approach Grandma")]
+    public void DebugForceApproachGrandma()
+    {
+        if (grandmaTransform == null)
+        {
+            Debug.LogError($"{gameObject.name}: Grandma transform not assigned!");
+            var grandma = FindFirstObjectByType<GrandmaInteractable>();
+            if (grandma != null)
+            {
+                grandmaTransform = grandma.transform;
+                Debug.Log($"Found Grandma at {grandmaTransform.position}");
+            }
+        }
+
+        if (grandmaTransform != null)
+        {
+            isWandering = true;
+            isApproachingGrandma = true;
+            targetPosition = grandmaTransform.position;
+            wanderTimer = 30f;
+            SetState(CatState.Walking);
+            Debug.Log($"{gameObject.name} forced to approach Grandma!");
+        }
+    }
+
+    [ContextMenu("Debug Cat Status")]
+    public void DebugCatStatus()
+    {
+        Debug.Log($"=== {gameObject.name} Status ===");
+        Debug.Log($"Personality: {personality}");
+        Debug.Log($"State: {currentState}");
+        Debug.Log($"Has Started: {hasStarted} (initial delay: {initialDelay:F1}s)");
+        Debug.Log($"Is Wandering: {isWandering}, Approaching Grandma: {isApproachingGrandma}");
+        Debug.Log($"Wander Chance: {wanderChance:F2}, Approach Grandma Chance: {approachGrandmaChance:F2}");
+        Debug.Log($"Grandma Transform: {(grandmaTransform != null ? grandmaTransform.name : "NULL")}");
+        Debug.Log($"Walk Sprites: {(walkSprites != null ? walkSprites.Length.ToString() : "NULL")}");
+        Debug.Log($"YardCat IsFed: {(yardCat != null ? yardCat.IsFed.ToString() : "NULL")}");
     }
 }
