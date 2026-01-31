@@ -23956,7 +23956,7 @@ MonoBehaviour:
     Source: {fileID: 0}
   - Type: 2
     Clip: {fileID: 8300000, guid: 487017b0f688c4007be65f0bad934ee6, type: 3}
-    Volume: 0.7
+    Volume: 0.5
     Source: {fileID: 0}
   - Type: 3
     Clip: {fileID: 8300000, guid: 2255f4a9b41b94e1eab565c0cae4eeb4, type: 3}
