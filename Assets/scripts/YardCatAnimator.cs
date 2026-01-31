@@ -71,10 +71,6 @@ public class YardCatAnimator : MonoBehaviour
     bool isGoingAwayFromGrandma;
     YardCat yardCat;
 
-    // Initial delay before cat starts acting (randomized)
-    float initialDelay;
-    bool hasStarted;
-
     enum CatState { Idle, Laying, Sleeping, GettingUp, Walking }
     CatState currentState;
 
@@ -91,29 +87,6 @@ public class YardCatAnimator : MonoBehaviour
         }
         ApplyPersonalityValues();
 
-        float minInitDelay = 0;
-        float maxInitDelay = 10;
-        switch (personality)
-        {
-            case CatPersonality.Lazy:
-            minInitDelay = 2f;
-            maxInitDelay = 7f;
-            break;
-
-            case CatPersonality.Balanced:
-            minInitDelay = 1f;
-            maxInitDelay = 5f;
-            break;
-
-            case CatPersonality.Active:
-            minInitDelay = 0f;
-            maxInitDelay = 3f;
-            break;
-        }
-        // Random initial delay (0-10 seconds) so cats don't all start acting at once
-        initialDelay = Random.Range(minInitDelay, maxInitDelay);
-        hasStarted = false;
-        
         // Start with idle
         SetState(CatState.Idle);
         ScheduleNextIdleChange();
@@ -131,7 +104,7 @@ public class YardCatAnimator : MonoBehaviour
             }
         }
 
-        Debug.Log($"{gameObject.name} personality: {personality} (starts in {initialDelay:F1}s)");
+        Debug.Log($"{gameObject.name} personality: {personality})");
     }
 
     void AssignRandomPersonality()
@@ -220,22 +193,6 @@ public class YardCatAnimator : MonoBehaviour
     {
         // Don't do anything if game is over
         if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
-
-        // Handle initial delay (cats don't all start at once)
-        if (!hasStarted)
-        {
-            initialDelay -= Time.deltaTime;
-            if (initialDelay <= 0)
-            {
-                hasStarted = true;
-            }
-            else
-            {
-                // Still animate while waiting
-                AnimateSprites();
-                return;
-            }
-        }
 
         // Handle transition delay
         if (isTransitioning)
@@ -604,7 +561,6 @@ public class YardCatAnimator : MonoBehaviour
         Debug.Log($"=== {gameObject.name} Status ===");
         Debug.Log($"Personality: {personality}");
         Debug.Log($"State: {currentState}");
-        Debug.Log($"Has Started: {hasStarted} (initial delay: {initialDelay:F1}s)");
         Debug.Log($"Is Wandering: {isWandering}, Approaching Grandma: {isApproachingGrandma}");
         Debug.Log($"Wander Chance: {wanderChance:F2}, Approach Grandma Chance: {approachGrandmaChance:F2}");
         Debug.Log($"Grandma Transform: {(grandmaTransform != null ? grandmaTransform.name : "NULL")}");
