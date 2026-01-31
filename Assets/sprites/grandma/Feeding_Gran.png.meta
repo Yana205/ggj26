@@ -1,31 +1,19 @@
 fileFormatVersion: 2
-guid: 5e40588ac7d31499b9ed376fbeacbe1e
+guid: bdf518d3e6d0644f8958881cd3a1bfc7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5807353947552565585
-    second: Run-Sheet_0
+      213: -4266126837208816455
+    second: Feeding_Gran_0
   - first:
-      213: -3540906705339577628
-    second: Run-Sheet_1
+      213: -5480691799813768893
+    second: Feeding_Gran_1
   - first:
-      213: -6677707856435898171
-    second: Run-Sheet_2
+      213: 4613287010628592621
+    second: Feeding_Gran_2
   - first:
-      213: 4002533974423468926
-    second: Run-Sheet_3
-  - first:
-      213: 2964676863673857177
-    second: Run-Sheet_4
-  - first:
-      213: -4675099393403972317
-    second: Run-Sheet_5
-  - first:
-      213: 4819010865800974824
-    second: Run-Sheet_6
-  - first:
-      213: 2581718483139709744
-    second: Run-Sheet_7
+      213: 3019145780234790409
+    second: Feeding_Gran_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -134,13 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Run-Sheet_0
+      name: Feeding_Gran_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 1
-        width: 29
-        height: 42
+        x: 29
+        y: 111
+        width: 11
+        height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -149,20 +137,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 15945d885add79050800000000000000
-      internalID: 5807353947552565585
+      spriteID: 9b468659e3cabc4c0800000000000000
+      internalID: -4266126837208816455
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run-Sheet_1
+      name: Feeding_Gran_1
       rect:
         serializedVersion: 2
-        x: 57
+        x: 31
         y: 0
-        width: 29
-        height: 41
+        width: 76
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +159,42 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4ea8f6dac1c2cdec0800000000000000
-      internalID: -3540906705339577628
+      spriteID: 34934b498dba0f3b0800000000000000
+      internalID: -5480691799813768893
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run-Sheet_2
+      name: Feeding_Gran_2
       rect:
         serializedVersion: 2
-        x: 103
+        x: 100
+        y: 109
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de3e07b0810b50040800000000000000
+      internalID: 4613287010628592621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Feeding_Gran_3
+      rect:
+        serializedVersion: 2
+        x: 13
         y: 0
-        width: 31
-        height: 42
+        width: 35
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,118 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5c89d47a5140453a0800000000000000
-      internalID: -6677707856435898171
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run-Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 151
-        y: 0
-        width: 31
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e7b71f2817bdb8730800000000000000
-      internalID: 4002533974423468926
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run-Sheet_4
-      rect:
-        serializedVersion: 2
-        x: 201
-        y: 1
-        width: 29
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 994791566e5a42920800000000000000
-      internalID: 2964676863673857177
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run-Sheet_5
-      rect:
-        serializedVersion: 2
-        x: 249
-        y: 0
-        width: 29
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 32513861fd5be1fb0800000000000000
-      internalID: -4675099393403972317
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run-Sheet_6
-      rect:
-        serializedVersion: 2
-        x: 295
-        y: 0
-        width: 31
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8e190d8a9d090e240800000000000000
-      internalID: 4819010865800974824
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run-Sheet_7
-      rect:
-        serializedVersion: 2
-        x: 343
-        y: 0
-        width: 31
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 03b4a99284b14d320800000000000000
-      internalID: 2581718483139709744
+      spriteID: 906a30c471926e920800000000000000
+      internalID: 3019145780234790409
       vertices: []
       indices: 
       edges: []
@@ -323,14 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Run-Sheet_0: 5807353947552565585
-      Run-Sheet_1: -3540906705339577628
-      Run-Sheet_2: -6677707856435898171
-      Run-Sheet_3: 4002533974423468926
-      Run-Sheet_4: 2964676863673857177
-      Run-Sheet_5: -4675099393403972317
-      Run-Sheet_6: 4819010865800974824
-      Run-Sheet_7: 2581718483139709744
+      Feeding_Gran_0: -4266126837208816455
+      Feeding_Gran_1: -5480691799813768893
+      Feeding_Gran_2: 4613287010628592621
+      Feeding_Gran_3: 3019145780234790409
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

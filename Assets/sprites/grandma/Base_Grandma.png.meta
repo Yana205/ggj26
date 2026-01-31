@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: dd2fd49ef84df431694753d2c5af63be
+guid: 6a8d6d9c7be5a4c91a43b4a7bf0bf5cc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8470553154200856005
-    second: Talk-Sheet_0
-  - first:
-      213: -1869914892584040110
-    second: Talk-Sheet_1
-  - first:
-      213: -8588275438767163154
-    second: Talk-Sheet_2
+      213: -550370139973136046
+    second: Base_Grandma_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -119,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Talk-Sheet_0
+      name: Base_Grandma_0
       rect:
         serializedVersion: 2
-        x: 7
+        x: 33
         y: 0
-        width: 31
-        height: 41
+        width: 74
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,52 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b3a1bc009cc827a80800000000000000
-      internalID: -8470553154200856005
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Talk-Sheet_1
-      rect:
-        serializedVersion: 2
-        x: 55
-        y: 0
-        width: 31
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 259c05bff4abc06e0800000000000000
-      internalID: -1869914892584040110
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Talk-Sheet_2
-      rect:
-        serializedVersion: 2
-        x: 103
-        y: 0
-        width: 31
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ee83217bdf050d880800000000000000
-      internalID: -8588275438767163154
+      spriteID: 2515bef0641bc58f0800000000000000
+      internalID: -550370139973136046
       vertices: []
       indices: 
       edges: []
@@ -198,9 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Talk-Sheet_0: -8470553154200856005
-      Talk-Sheet_1: -1869914892584040110
-      Talk-Sheet_2: -8588275438767163154
+      Base_Grandma_0: -550370139973136046
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

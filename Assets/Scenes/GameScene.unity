@@ -321,12 +321,12 @@ SpriteRenderer:
   m_SortingLayerID: -1122418727
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3145328045451892686, guid: a2ca3df8553854b909e4f04fcdd39706, type: 3}
+  m_Sprite: {fileID: -550370139973136046, guid: 6a8d6d9c7be5a4c91a43b4a7bf0bf5cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.77, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -341,8 +341,8 @@ Transform:
   m_GameObject: {fileID: 104234890}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.34, y: 1.39, z: 0}
-  m_LocalScale: {x: 6.55, y: 6.55, z: 6.55}
+  m_LocalPosition: {x: 7.27, y: 2.24, z: 0}
+  m_LocalScale: {x: 2.66, y: 2.66, z: 2.66}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -397,8 +397,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.31, y: 0.42}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 0.74, y: 1.28}
+    newSize: {x: 0.77, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -20996,19 +20996,17 @@ MonoBehaviour:
   - {fileID: 759149157, guid: 9aa7249709763ea4c86134fef8dba5a5, type: 3}
   frameRate: 8
   transitionDelay: 0.5
-  baseMinIdleTime: 4
-  baseMaxIdleTime: 10
-  baseMinRestTime: 5
-  baseMaxRestTime: 12
-  baseWanderSpeed: 1
+  minIdleTime: 4
+  maxIdleTime: 10
+  minRestTime: 5
+  maxRestTime: 12
+  wanderSpeed: 1
   wanderRadius: 3
-  baseMinWanderTime: 2
-  baseMaxWanderTime: 5
+  minWanderTime: 2
+  maxWanderTime: 5
   grandmaTransform: {fileID: 0}
-  baseApproachGrandmaChance: 0.2
+  approachGrandmaChance: 0.5
   grandmaFeedDistance: 1.5
-  randomizePersonality: 1
-  personality: 0
 --- !u!114 &1739673008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21210,19 +21208,17 @@ MonoBehaviour:
   - {fileID: -1461333898, guid: 49e7895c68a00054d85207e49bcc9b87, type: 3}
   frameRate: 8
   transitionDelay: 0.5
-  baseMinIdleTime: 4
-  baseMaxIdleTime: 10
-  baseMinRestTime: 5
-  baseMaxRestTime: 12
-  baseWanderSpeed: 1
+  minIdleTime: 4
+  maxIdleTime: 10
+  minRestTime: 5
+  maxRestTime: 12
+  wanderSpeed: 1
   wanderRadius: 3
-  baseMinWanderTime: 2
-  baseMaxWanderTime: 5
+  minWanderTime: 2
+  maxWanderTime: 5
   grandmaTransform: {fileID: 0}
-  baseApproachGrandmaChance: 0.2
+  approachGrandmaChance: 0.5
   grandmaFeedDistance: 1.5
-  randomizePersonality: 1
-  personality: 0
 --- !u!114 &1895975374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21726,19 +21722,17 @@ MonoBehaviour:
   - {fileID: 1257282901, guid: 2ad3cc18f9a18b048a10527d2aa6ae46, type: 3}
   frameRate: 8
   transitionDelay: 0.5
-  baseMinIdleTime: 4
-  baseMaxIdleTime: 10
-  baseMinRestTime: 5
-  baseMaxRestTime: 12
-  baseWanderSpeed: 1
+  minIdleTime: 4
+  maxIdleTime: 10
+  minRestTime: 5
+  maxRestTime: 12
+  wanderSpeed: 1
   wanderRadius: 3
-  baseMinWanderTime: 2
-  baseMaxWanderTime: 5
+  minWanderTime: 2
+  maxWanderTime: 5
   grandmaTransform: {fileID: 0}
-  baseApproachGrandmaChance: 0.2
+  approachGrandmaChance: 0.5
   grandmaFeedDistance: 1.5
-  randomizePersonality: 1
-  personality: 0
 --- !u!114 &5806150447868685102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21950,19 +21944,17 @@ MonoBehaviour:
   - {fileID: -748725566, guid: 48f786bb3656d214ea5f0da794936c33, type: 3}
   frameRate: 8
   transitionDelay: 0.5
-  baseMinIdleTime: 4
-  baseMaxIdleTime: 10
-  baseMinRestTime: 5
-  baseMaxRestTime: 12
-  baseWanderSpeed: 1
+  minIdleTime: 4
+  maxIdleTime: 10
+  minRestTime: 5
+  maxRestTime: 12
+  wanderSpeed: 1
   wanderRadius: 3
-  baseMinWanderTime: 2
-  baseMaxWanderTime: 5
+  minWanderTime: 2
+  maxWanderTime: 5
   grandmaTransform: {fileID: 0}
-  baseApproachGrandmaChance: 0.2
+  approachGrandmaChance: 0.5
   grandmaFeedDistance: 1.5
-  randomizePersonality: 1
-  personality: 0
 --- !u!114 &8726472759819548841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22120,19 +22112,17 @@ MonoBehaviour:
   - {fileID: -1521321031, guid: 0f81ef3f261eb3042b0a40f92dda9beb, type: 3}
   frameRate: 8
   transitionDelay: 0.5
-  baseMinIdleTime: 4
-  baseMaxIdleTime: 10
-  baseMinRestTime: 5
-  baseMaxRestTime: 12
-  baseWanderSpeed: 1
+  minIdleTime: 4
+  maxIdleTime: 10
+  minRestTime: 5
+  maxRestTime: 12
+  wanderSpeed: 1
   wanderRadius: 3
-  baseMinWanderTime: 2
-  baseMaxWanderTime: 5
+  minWanderTime: 2
+  maxWanderTime: 5
   grandmaTransform: {fileID: 0}
-  baseApproachGrandmaChance: 0.2
+  approachGrandmaChance: 0.5
   grandmaFeedDistance: 1.5
-  randomizePersonality: 1
-  personality: 0
 --- !u!114 &8911903313122404341
 MonoBehaviour:
   m_ObjectHideFlags: 0

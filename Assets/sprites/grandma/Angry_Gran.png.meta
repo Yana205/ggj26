@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 5d5b1b69b240549c19037f4b2a7f7fde
+guid: d0c59060e303840c79405bd0ccd9cd6d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8514904351332854816
-    second: Jump-Sheet_0
-  - first:
-      213: 6410117835993900320
-    second: Jump-Sheet_1
-  - first:
-      213: 8778145040096701731
-    second: Jump-Sheet_2
+      213: 8418176075903820413
+    second: Angry_Gran_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -119,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Jump-Sheet_0
+      name: Angry_Gran_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 98
-        width: 30
-        height: 43
+        x: 33
+        y: 0
+        width: 74
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,52 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 02c6f95c4640b2670800000000000000
-      internalID: 8514904351332854816
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump-Sheet_1
-      rect:
-        serializedVersion: 2
-        x: 10
-        y: 50
-        width: 29
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 025efc6a53055f850800000000000000
-      internalID: 6410117835993900320
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump-Sheet_2
-      rect:
-        serializedVersion: 2
-        x: 10
-        y: 1
-        width: 28
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 32d22d5c76c32d970800000000000000
-      internalID: 8778145040096701731
+      spriteID: d7260f42a8e53d470800000000000000
+      internalID: 8418176075903820413
       vertices: []
       indices: 
       edges: []
@@ -198,9 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Jump-Sheet_0: 8514904351332854816
-      Jump-Sheet_1: 6410117835993900320
-      Jump-Sheet_2: 8778145040096701731
+      Angry_Gran_0: 8418176075903820413
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
