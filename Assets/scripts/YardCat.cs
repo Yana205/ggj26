@@ -11,6 +11,7 @@ public class YardCat : MonoBehaviour
     
     [Header("Fed Indicator")]
     [SerializeField] float fedAlpha = 0.6f;  // Opacity when fed (subtle indicator)
+    [SerializeField] float eatingTime = 3f;  // Seconds grandma is busy after feeding this cat
 
     [Header("Interaction")]
     [SerializeField] float uninteractableNearGrandmaDistance = 2f;  // Too close to Grandma = can't copy disguise
@@ -21,6 +22,7 @@ public class YardCat : MonoBehaviour
     public Color CatColor => catColor;
     public Sprite DisguiseSprite => disguiseSprite;
     public bool IsFed { get; private set; }
+    public float EatingTime => eatingTime;
 
     SpriteRenderer spriteRenderer;
     Color originalColor;
