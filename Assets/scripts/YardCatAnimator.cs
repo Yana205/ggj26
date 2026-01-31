@@ -6,6 +6,7 @@ public class YardCatAnimator : MonoBehaviour
     [SerializeField] Sprite[] idleSprites;           // Loops continuously
     [SerializeField] Sprite[] layingSprites;         // Plays once, holds last frame
     [SerializeField] Sprite[] sleepingSprites;       // Plays once, holds last frame
+    [SerializeField] Sprite[] walkSprites;           // Walking animation
 
     [Header("Animation Settings")]
     [SerializeField] float frameRate = 8f;
@@ -16,6 +17,15 @@ public class YardCatAnimator : MonoBehaviour
     [SerializeField] float maxIdleTime = 10f;        // Max time in idle before changing
     [SerializeField] float minRestTime = 5f;         // Min time laying/sleeping
     [SerializeField] float maxRestTime = 12f;        // Max time laying/sleeping
+
+    [Header("Movement")]
+    [SerializeField] float wanderSpeed = 1f;
+    [SerializeField] float wanderRadius = 3f;        // How far cat wanders from start
+    [SerializeField] float minWanderTime = 2f;
+    [SerializeField] float maxWanderTime = 5f;
+    [SerializeField] Transform grandmaTransform;     // Assign Grandma in Inspector
+    [SerializeField] float approachGrandmaChance = 0.2f;  // 20% chance to go to Grandma
+    [SerializeField] float grandmaFeedDistance = 1.5f;    // How close to get to Grandma
 
     SpriteRenderer spriteRenderer;
     Sprite[] currentSprites;
@@ -29,12 +39,22 @@ public class YardCatAnimator : MonoBehaviour
     bool isGettingUp;
     Sprite[] gettingUpSprites;  // Reversed sprites for getting up
 
-    enum CatState { Idle, Laying, Sleeping, GettingUp }
+    // Movement
+    Vector3 startPosition;
+    Vector3 targetPosition;
+    float wanderTimer;
+    bool isWandering;
+    bool isApproachingGrandma;
+    YardCat yardCat;
+
+    enum CatState { Idle, Laying, Sleeping, GettingUp, Walking }
     CatState currentState;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        yardCat = GetComponent<YardCat>();
+        startPosition = transform.position;
         
         // Start with idle
         SetState(CatState.Idle);
@@ -45,10 +65,23 @@ public class YardCatAnimator : MonoBehaviour
         
         // Randomize initial timer so cats don't all change at once
         stateTimer = Random.Range(0f, minIdleTime * 0.5f);
+
+        // Try to find Grandma if not assigned
+        if (grandmaTransform == null)
+        {
+            var grandma = FindFirstObjectByType<GrandmaInteractable>();
+            if (grandma != null)
+            {
+                grandmaTransform = grandma.transform;
+            }
+        }
     }
 
     void Update()
     {
+        // Don't do anything if game is over
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
+
         // Handle transition delay
         if (isTransitioning)
         {
@@ -62,6 +95,7 @@ public class YardCatAnimator : MonoBehaviour
 
         AnimateSprites();
         UpdateStateTimer();
+        UpdateMovement();
     }
 
     void AnimateSprites()
@@ -73,9 +107,9 @@ public class YardCatAnimator : MonoBehaviour
         {
             frameTimer = 0f;
 
-            if (currentState == CatState.Idle)
+            if (currentState == CatState.Idle || currentState == CatState.Walking)
             {
-                // Idle loops
+                // Idle and Walking loop
                 currentFrame = (currentFrame + 1) % currentSprites.Length;
             }
             else if (currentState == CatState.GettingUp)
@@ -116,11 +150,16 @@ public class YardCatAnimator : MonoBehaviour
         
         if (currentState == CatState.Idle)
         {
-            // From idle, can transition to laying or sleeping
+            // From idle, can transition to laying, sleeping, or walking
             if (stateTimer >= nextStateChange)
             {
-                TransitionToRandomRestState();
+                DecideNextAction();
             }
+        }
+        else if (currentState == CatState.Walking)
+        {
+            // Walking is handled by UpdateMovement
+            return;
         }
         else
         {
@@ -181,6 +220,9 @@ public class YardCatAnimator : MonoBehaviour
             case CatState.Idle:
                 currentSprites = idleSprites;
                 break;
+            case CatState.Walking:
+                currentSprites = walkSprites != null && walkSprites.Length > 0 ? walkSprites : idleSprites;
+                break;
             case CatState.Laying:
                 currentSprites = layingSprites;
                 nextStateChange = Random.Range(minRestTime, maxRestTime);
@@ -213,5 +255,127 @@ public class YardCatAnimator : MonoBehaviour
     void ScheduleNextIdleChange()
     {
         nextStateChange = Random.Range(minIdleTime, maxIdleTime);
+    }
+
+    void UpdateMovement()
+    {
+        if (!isWandering && !isApproachingGrandma) return;
+        if (currentState != CatState.Walking) return;
+
+        // Move toward target
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        transform.position += direction * wanderSpeed * Time.deltaTime;
+
+        // Flip sprite based on movement direction
+        if (spriteRenderer != null)
+        {
+            if (direction.x < -0.1f)
+                spriteRenderer.flipX = false;
+            else if (direction.x > 0.1f)
+                spriteRenderer.flipX = true;
+        }
+
+        // Check if reached target
+        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+        
+        if (isApproachingGrandma)
+        {
+            // Check if close enough to Grandma to get fed
+            if (distanceToTarget < grandmaFeedDistance)
+            {
+                OnReachedGrandma();
+            }
+        }
+        else
+        {
+            // Regular wandering - reached target
+            if (distanceToTarget < 0.1f)
+            {
+                StopWandering();
+            }
+        }
+
+        // Timeout for wandering
+        wanderTimer -= Time.deltaTime;
+        if (wanderTimer <= 0)
+        {
+            StopWandering();
+        }
+    }
+
+    void StartWandering()
+    {
+        // Don't wander if already fed
+        if (yardCat != null && yardCat.IsFed) return;
+
+        isWandering = true;
+        isApproachingGrandma = false;
+
+        // Decide: wander randomly or approach Grandma?
+        bool shouldApproachGrandma = grandmaTransform != null && 
+                                      Random.value < approachGrandmaChance &&
+                                      yardCat != null && !yardCat.IsFed;
+
+        if (shouldApproachGrandma)
+        {
+            // Go to Grandma
+            isApproachingGrandma = true;
+            targetPosition = grandmaTransform.position;
+            wanderTimer = 30f;  // Long timeout for approaching Grandma
+            Debug.Log($"{gameObject.name} is going to Grandma!");
+        }
+        else
+        {
+            // Random wander within radius
+            Vector2 randomOffset = Random.insideUnitCircle * wanderRadius;
+            targetPosition = startPosition + new Vector3(randomOffset.x, randomOffset.y, 0);
+            wanderTimer = Random.Range(minWanderTime, maxWanderTime);
+        }
+
+        SetState(CatState.Walking);
+    }
+
+    void StopWandering()
+    {
+        isWandering = false;
+        isApproachingGrandma = false;
+        SetState(CatState.Idle);
+        ScheduleNextIdleChange();
+    }
+
+    void OnReachedGrandma()
+    {
+        Debug.Log($"{gameObject.name} reached Grandma and wants food!");
+        
+        // Get fed by Grandma
+        if (yardCat != null && !yardCat.IsFed)
+        {
+            // Mark this cat as fed
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.FeedYardCat(yardCat.CatId);
+            }
+            yardCat.MarkAsFed();
+        }
+
+        // Stop and go back to idle
+        StopWandering();
+    }
+
+    // Modified: Sometimes wander instead of laying/sleeping
+    void DecideNextAction()
+    {
+        float rand = Random.value;
+        
+        if (rand < 0.3f && walkSprites != null && walkSprites.Length > 0)
+        {
+            // 30% chance to wander
+            StartWandering();
+        }
+        else
+        {
+            // 70% chance to rest
+            TransitionToRandomRestState();
+        }
     }
 }
