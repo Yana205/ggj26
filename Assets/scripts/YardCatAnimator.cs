@@ -18,6 +18,16 @@ public class YardCatAnimator : MonoBehaviour
     [SerializeField] float baseMinRestTime = 5f;
     [SerializeField] float baseMaxRestTime = 12f;
 
+<<<<<<< HEAD
+    [Header("Movement")]
+    [SerializeField] float wanderSpeed = 1f;
+    [SerializeField] float wanderRadius = 3f;        // How far cat wanders from start
+    [SerializeField] float minWanderTime = 2f;
+    [SerializeField] float maxWanderTime = 5f;
+    [SerializeField] Transform grandmaTransform;     // Assign Grandma in Inspector
+    private float approachGrandmaChance = 0.7f;  // 70% chance to go to Grandma
+    [SerializeField] float grandmaFeedDistance = 1.5f;    // How close to get to Grandma
+=======
     [Header("Movement (modified by personality)")]
     [SerializeField] float baseWanderSpeed = 1f;
     [SerializeField] float wanderRadius = 3f;
@@ -48,6 +58,7 @@ public class YardCatAnimator : MonoBehaviour
     float maxWanderTime;
     float approachGrandmaChance;
     float wanderChance;  // Chance to wander vs rest
+>>>>>>> master
 
     SpriteRenderer spriteRenderer;
     Sprite[] currentSprites;
@@ -67,6 +78,7 @@ public class YardCatAnimator : MonoBehaviour
     float wanderTimer;
     bool isWandering;
     bool isApproachingGrandma;
+    bool isGoingAwayFromGrandma;
     YardCat yardCat;
 
     // Initial delay before cat starts acting (randomized)
@@ -393,7 +405,7 @@ public class YardCatAnimator : MonoBehaviour
 
     void UpdateMovement()
     {
-        if (!isWandering && !isApproachingGrandma) return;
+        if (!isWandering && !isApproachingGrandma && !isGoingAwayFromGrandma) return;
         if (currentState != CatState.Walking) return;
 
         // Move toward target
@@ -405,9 +417,15 @@ public class YardCatAnimator : MonoBehaviour
         if (spriteRenderer != null)
         {
             if (direction.x < -0.1f)
+<<<<<<< HEAD
+                spriteRenderer.flipX = true;
+            else if (direction.x > 0.1f)
+                spriteRenderer.flipX = false;
+=======
                 spriteRenderer.flipX = true;   // Moving left - flip (or set false if sprite faces left)
             else if (direction.x > 0.1f)
                 spriteRenderer.flipX = false;  // Moving right - no flip (or set true if sprite faces left)
+>>>>>>> master
         }
 
         // Check if reached target
@@ -419,6 +437,13 @@ public class YardCatAnimator : MonoBehaviour
             if (distanceToTarget < grandmaFeedDistance)
             {
                 OnReachedGrandma();
+            }
+        }
+        else if (isGoingAwayFromGrandma)
+        {
+            if (distanceToTarget < 1)
+            {
+                OnReachedStartPosition();
             }
         }
         else
@@ -440,14 +465,15 @@ public class YardCatAnimator : MonoBehaviour
 
     void StartWandering()
     {
-        // Don't wander if already fed
-        if (yardCat != null && yardCat.IsFed) return;
+        // Don't wander if already fed, unless to go away from grandma
+        if (yardCat != null && yardCat.IsFed && !isGoingAwayFromGrandma) return;
 
         isWandering = true;
         isApproachingGrandma = false;
 
         // Decide: wander randomly or approach Grandma?
-        bool shouldApproachGrandma = grandmaTransform != null && 
+        bool shouldApproachGrandma = !isGoingAwayFromGrandma &&
+                                      grandmaTransform != null && 
                                       Random.value < approachGrandmaChance &&
                                       yardCat != null && !yardCat.IsFed;
 
@@ -465,6 +491,10 @@ public class YardCatAnimator : MonoBehaviour
             Vector2 randomOffset = Random.insideUnitCircle * wanderRadius;
             targetPosition = startPosition + new Vector3(randomOffset.x, randomOffset.y, 0);
             wanderTimer = Random.Range(minWanderTime, maxWanderTime);
+            if (isGoingAwayFromGrandma)
+            {
+                Debug.Log($"{gameObject.name} is going away from Grandma!");        
+            }
         }
 
         SetState(CatState.Walking);
@@ -499,6 +529,17 @@ public class YardCatAnimator : MonoBehaviour
             }
         }
 
+        isApproachingGrandma = false;
+
+        isGoingAwayFromGrandma = true;
+        targetPosition = startPosition;
+        StopWandering();
+    }
+
+    void OnReachedStartPosition()
+    {
+        Debug.Log($"{gameObject.name} reached back to start position!");
+
         // Stop and go back to idle
         StopWandering();
     }
@@ -508,10 +549,14 @@ public class YardCatAnimator : MonoBehaviour
     {
         float rand = Random.value;
         
+<<<<<<< HEAD
+        if (rand < 0.7f && walkSprites != null && walkSprites.Length > 0)
+=======
         // Debug: uncomment to see decision making
         // Debug.Log($"{gameObject.name}: rand={rand:F2}, wanderChance={wanderChance:F2}, hasWalkSprites={walkSprites != null && walkSprites.Length > 0}");
         
         if (rand < wanderChance && walkSprites != null && walkSprites.Length > 0)
+>>>>>>> master
         {
             // Chance to wander (varies by personality)
             StartWandering();

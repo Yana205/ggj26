@@ -16,6 +16,12 @@ public class CatPlayerController : MonoBehaviour
     [SerializeField] float interactRadius = 2f;
     [SerializeField] LayerMask interactLayerMask = -1;
     [SerializeField] bool showInteractRadius = true;  // Show radius in editor
+    
+    // [Header("Bounds")]
+    private float minX = -25.3f;
+    private float maxX = 25.6f;
+    private float minY = -16f;
+    private float maxY = 18f;
 
     InputAction interactAction;
     InputAction moveAction;
@@ -62,6 +68,11 @@ public class CatPlayerController : MonoBehaviour
             Vector2 move = moveAction.ReadValue<Vector2>();
             Vector3 delta = new Vector3(move.x, move.y, 0f) * moveSpeed * Time.deltaTime;
             transform.position += delta;
+
+            Vector3 pos = transform.position;
+            pos.x = Mathf.Clamp(pos.x, minX, maxX);
+            pos.y = Mathf.Clamp(pos.y, minY, maxY);
+            transform.position = pos;
 
             // Animation: set IsMoving parameter and track idle time
             bool isMoving = move.sqrMagnitude > 0.01f;
@@ -117,14 +128,10 @@ public class CatPlayerController : MonoBehaviour
         // DEBUG: Log how many colliders were found
         Debug.Log($"[Interact] Found {hits.Length} colliders within radius {interactRadius}");
         
+        // Prioritize Grandma over yard cats when both are in range
         foreach (var hit in hits)
         {
-            // DEBUG: Log each hit
-            Debug.Log($"[Interact] Hit: {hit.gameObject.name} (Layer: {hit.gameObject.layer})");
-            
             if (hit.gameObject == gameObject) continue;
-            
-            // Check for Grandma
             var grandma = hit.GetComponent<GrandmaInteractable>();
             if (grandma != null)
             {
@@ -132,8 +139,10 @@ public class CatPlayerController : MonoBehaviour
                 grandma.OnPlayerInteract(this);
                 return;
             }
-
-            // Check for Yard Cat (to copy disguise)
+        }
+        foreach (var hit in hits)
+        {
+            if (hit.gameObject == gameObject) continue;
             var yardCat = hit.GetComponent<YardCat>();
             if (yardCat != null)
             {
@@ -141,9 +150,6 @@ public class CatPlayerController : MonoBehaviour
                 yardCat.OnPlayerInteract(this);
                 return;
             }
-            
-            // DEBUG: Object has no interactable script
-            Debug.Log($"[Interact] {hit.gameObject.name} has no GrandmaInteractable or YardCat script!");
         }
     }
 
