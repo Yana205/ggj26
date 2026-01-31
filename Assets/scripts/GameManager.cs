@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
@@ -131,6 +132,7 @@ public class GameManager : MonoBehaviour
         Debug.Log($"GAME OVER: {reason}");
         OnGameOver?.Invoke(reason);
         OnGameStateChanged?.Invoke();
+        SceneManager.LoadScene("LoseScene", LoadSceneMode.Single);
     }
 
     public void TriggerWin()
@@ -141,6 +143,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("YOU WIN! Cat is fully satisfied!");
         OnGameWon?.Invoke();
         OnGameStateChanged?.Invoke();
+        SceneManager.LoadScene("WinScene", LoadSceneMode.Single);
     }
 
     public void RestartGame()
