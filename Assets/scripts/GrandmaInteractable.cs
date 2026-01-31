@@ -41,8 +41,10 @@ public class GrandmaInteractable : MonoBehaviour
                     hunger.GetFed();
                 
                 // Show feeding message
-                if (speechBubble != null)
+                if (speechBubble != null){
                     speechBubble.ShowFeedingMessage(disguiseId);
+                    AudioManager.Instance.Play(AudioManager.SoundType.Eating);
+                }
                 
                 // Mark the corresponding yard cat as fed (visual indicator)
                 MarkYardCatAsFed(disguiseId);
@@ -53,8 +55,10 @@ public class GrandmaInteractable : MonoBehaviour
             else if (alreadyFed)
             {
                 // Caught! Show recognition message
-                if (speechBubble != null)
+                if (speechBubble != null){
                     speechBubble.ShowAlreadyFedMessage(disguiseId);
+                    AudioManager.Instance.Play(AudioManager.SoundType.AngryGrandma);
+                }
             }
         }
         else
@@ -72,7 +76,10 @@ public class GrandmaInteractable : MonoBehaviour
 
         // Show message
         if (speechBubble != null)
+        {
             speechBubble.ShowFeedingMessage(cat.CatId);
+            AudioManager.Instance.Play(AudioManager.SoundType.Eating);
+        }
 
         // Mark as fed
         if (GameManager.Instance != null)
