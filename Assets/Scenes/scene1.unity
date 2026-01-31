@@ -20827,6 +20827,7 @@ GameObject:
   - component: {fileID: 1739673004}
   - component: {fileID: 1739673006}
   - component: {fileID: 1739673007}
+  - component: {fileID: 1739673008}
   m_Layer: 3
   m_Name: Cat4-brown
   m_TagString: Untagged
@@ -20965,10 +20966,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c94cc670d56496bb9d0f668ab32659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::YardCatAnimator
-  idleSprites: []
-  layingSprites: []
-  sleepingSprites: []
-  walkSprites: []
+  idleSprites:
+  - {fileID: 700863220, guid: 29c3063ec7972754b8fb8b4cdef4b34e, type: 3}
+  - {fileID: -1451954571, guid: 29c3063ec7972754b8fb8b4cdef4b34e, type: 3}
+  - {fileID: 341140048, guid: 29c3063ec7972754b8fb8b4cdef4b34e, type: 3}
+  - {fileID: 762189153, guid: 29c3063ec7972754b8fb8b4cdef4b34e, type: 3}
+  - {fileID: -252946400, guid: 29c3063ec7972754b8fb8b4cdef4b34e, type: 3}
+  - {fileID: 756720618, guid: 29c3063ec7972754b8fb8b4cdef4b34e, type: 3}
+  - {fileID: 776677079, guid: 29c3063ec7972754b8fb8b4cdef4b34e, type: 3}
+  - {fileID: -1402085370, guid: 29c3063ec7972754b8fb8b4cdef4b34e, type: 3}
+  - {fileID: -1630355704, guid: 29c3063ec7972754b8fb8b4cdef4b34e, type: 3}
+  - {fileID: -1566392900, guid: 29c3063ec7972754b8fb8b4cdef4b34e, type: 3}
+  layingSprites:
+  - {fileID: -285914673, guid: c5d6cfa24639e7a43aa506c1aee3558b, type: 3}
+  - {fileID: 846968324, guid: c5d6cfa24639e7a43aa506c1aee3558b, type: 3}
+  - {fileID: 1060571139, guid: c5d6cfa24639e7a43aa506c1aee3558b, type: 3}
+  - {fileID: -1519219190, guid: c5d6cfa24639e7a43aa506c1aee3558b, type: 3}
+  - {fileID: -622672188, guid: c5d6cfa24639e7a43aa506c1aee3558b, type: 3}
+  sleepingSprites:
+  - {fileID: 748500235, guid: 0d45e5243f232b4469f7404847e2718a, type: 3}
+  walkSprites:
+  - {fileID: -2100683984, guid: 9aa7249709763ea4c86134fef8dba5a5, type: 3}
+  - {fileID: 620971343, guid: 9aa7249709763ea4c86134fef8dba5a5, type: 3}
+  - {fileID: 555452192, guid: 9aa7249709763ea4c86134fef8dba5a5, type: 3}
+  - {fileID: 66006688, guid: 9aa7249709763ea4c86134fef8dba5a5, type: 3}
+  - {fileID: -2102496383, guid: 9aa7249709763ea4c86134fef8dba5a5, type: 3}
+  - {fileID: -393431429, guid: 9aa7249709763ea4c86134fef8dba5a5, type: 3}
+  - {fileID: -1052112211, guid: 9aa7249709763ea4c86134fef8dba5a5, type: 3}
+  - {fileID: 759149157, guid: 9aa7249709763ea4c86134fef8dba5a5, type: 3}
   frameRate: 8
   transitionDelay: 0.5
   minIdleTime: 4
@@ -20982,6 +21007,23 @@ MonoBehaviour:
   grandmaTransform: {fileID: 0}
   approachGrandmaChance: 0.2
   grandmaFeedDistance: 1.5
+--- !u!114 &1739673008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739673002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c74eddcff3cd44330ac94a61b7072a3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::YardCat
+  catId: Brown
+  catColor: {r: 0.754717, g: 0.5371809, b: 0.33107865, a: 1}
+  disguiseSprite: {fileID: 0}
+  fedAlpha: 0.6
+  hungryAgainTime: 180
 --- !u!1 &1895975368
 GameObject:
   m_ObjectHideFlags: 0
@@ -22005,10 +22047,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c94cc670d56496bb9d0f668ab32659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::YardCatAnimator
-  idleSprites: []
-  layingSprites: []
-  sleepingSprites: []
-  walkSprites: []
+  idleSprites:
+  - {fileID: 1072420254, guid: 9a9c6edcac74f094ab0c175be8ea553f, type: 3}
+  layingSprites:
+  - {fileID: 62020125, guid: 6e98cff7a344aae4bbd1892df8a10059, type: 3}
+  - {fileID: -340463823, guid: 6e98cff7a344aae4bbd1892df8a10059, type: 3}
+  - {fileID: -1196507446, guid: 6e98cff7a344aae4bbd1892df8a10059, type: 3}
+  - {fileID: 127836623, guid: 6e98cff7a344aae4bbd1892df8a10059, type: 3}
+  - {fileID: 709462171, guid: 6e98cff7a344aae4bbd1892df8a10059, type: 3}
+  - {fileID: 2099145336, guid: 6e98cff7a344aae4bbd1892df8a10059, type: 3}
+  - {fileID: 1558819343, guid: 6e98cff7a344aae4bbd1892df8a10059, type: 3}
+  - {fileID: -391436112, guid: 6e98cff7a344aae4bbd1892df8a10059, type: 3}
+  sleepingSprites:
+  - {fileID: -1811974562, guid: 072f5343b2b65704ca1cbc212b2da37f, type: 3}
+  walkSprites:
+  - {fileID: -1496835459, guid: 0f81ef3f261eb3042b0a40f92dda9beb, type: 3}
+  - {fileID: -1438718943, guid: 0f81ef3f261eb3042b0a40f92dda9beb, type: 3}
+  - {fileID: 504402059, guid: 0f81ef3f261eb3042b0a40f92dda9beb, type: 3}
+  - {fileID: -389805139, guid: 0f81ef3f261eb3042b0a40f92dda9beb, type: 3}
+  - {fileID: -727953682, guid: 0f81ef3f261eb3042b0a40f92dda9beb, type: 3}
+  - {fileID: 1829353395, guid: 0f81ef3f261eb3042b0a40f92dda9beb, type: 3}
+  - {fileID: 958113212, guid: 0f81ef3f261eb3042b0a40f92dda9beb, type: 3}
+  - {fileID: -1521321031, guid: 0f81ef3f261eb3042b0a40f92dda9beb, type: 3}
   frameRate: 8
   transitionDelay: 0.5
   minIdleTime: 4
