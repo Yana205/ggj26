@@ -13,20 +13,20 @@ public class YardCatAnimator : MonoBehaviour
     [SerializeField] float transitionDelay = 0.5f;   // Pause before transitioning
 
     [Header("Base Timing (modified by personality)")]
-    [SerializeField] float baseMinIdleTime = 4f;
-    [SerializeField] float baseMaxIdleTime = 10f;
-    [SerializeField] float baseMinRestTime = 5f;
-    [SerializeField] float baseMaxRestTime = 12f;
+    private float baseMinIdleTime = 4f;
+    private float baseMaxIdleTime = 10f;
+    private float baseMinRestTime = 5f;
+    private float baseMaxRestTime = 12f;
 
 
     [Header("Movement (modified by personality)")]
-    [SerializeField] float baseWanderSpeed = 1f;
-    [SerializeField] float wanderRadius = 3f;
-    [SerializeField] float baseMinWanderTime = 2f;
-    [SerializeField] float baseMaxWanderTime = 5f;
+    private float baseWanderSpeed = 1f;
+    private float wanderRadius = 3f;
+    private float baseMinWanderTime = 2f;
+    private float baseMaxWanderTime = 5f;
     [SerializeField] Transform grandmaTransform;
-    [SerializeField] float baseApproachGrandmaChance = 0.7f;
-    [SerializeField] float grandmaFeedDistance = 1.5f;
+    private float baseApproachGrandmaChance = 0.7f;
+    private float grandmaFeedDistance = 1.5f;
 
     [Header("Personality (assigned randomly at start)")]
     [SerializeField] bool randomizePersonality = true;

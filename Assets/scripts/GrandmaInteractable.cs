@@ -7,8 +7,9 @@ public class GrandmaInteractable : MonoBehaviour
     Sprite baseSprite;
     Coroutine spriteRoutine;
 
-    private float spriteDuration = 2f;
+    private float spriteDuration = 2f;  // Used for angry sprite; feeding uses cat's eating time
     float busyUntil;  // Grandma is busy (feeding) until this time
+    float spriteRestoreDelay;  // Delay used by RestoreBaseSpriteAfterDelay
 
     [Header("Feeding sprite")]
     [SerializeField] Sprite feedingSprite;
@@ -80,8 +81,8 @@ public class GrandmaInteractable : MonoBehaviour
                 if (hunger != null)
                     hunger.GetFed();
                 
-                // Show feeding sprite
-                ShowSprite(0);
+                // Show feeding sprite for this cat's eating time
+                ShowSprite(0, GetEatingTimeForCat(disguiseId));
                 
                 // Show feeding message
                 if (speechBubble != null){
@@ -123,8 +124,8 @@ public class GrandmaInteractable : MonoBehaviour
         // Grandma is busy - yard cat returns to place normally, not fed, no message
         if (IsBusy) return;
 
-        // Show feeding sprite
-        ShowSprite(0);
+        // Show feeding sprite for this cat's eating time
+        ShowSprite(0, cat.EatingTime);
 
         // Show message
         if (speechBubble != null)
@@ -143,7 +144,7 @@ public class GrandmaInteractable : MonoBehaviour
         SetBusyFor(cat.EatingTime);
     }
 
-    void ShowSprite(int sprite_mode) // 0 = feeding, 1 = angry
+    void ShowSprite(int sprite_mode, float duration = -1f) // 0 = feeding, 1 = angry; duration < 0 = use default
     {
         if(spriteRenderer == null) return;
         if(0 == sprite_mode && feedingSprite == null) return;
@@ -152,6 +153,7 @@ public class GrandmaInteractable : MonoBehaviour
         {
             StopCoroutine(spriteRoutine);
         }
+        spriteRestoreDelay = duration >= 0f ? duration : spriteDuration;
         if(0 == sprite_mode)
         {
             spriteRenderer.sprite = feedingSprite;
@@ -165,7 +167,7 @@ public class GrandmaInteractable : MonoBehaviour
 
     System.Collections.IEnumerator RestoreBaseSpriteAfterDelay()
     {
-        yield return new WaitForSeconds(spriteDuration);
+        yield return new WaitForSeconds(spriteRestoreDelay);
         if (spriteRenderer != null && baseSprite != null)
             spriteRenderer.sprite = baseSprite;
         spriteRoutine = null;
