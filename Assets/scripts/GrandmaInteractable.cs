@@ -8,6 +8,7 @@ public class GrandmaInteractable : MonoBehaviour
     Coroutine spriteRoutine;
 
     private float spriteDuration = 2f;
+    float busyUntil;  // Grandma is busy (feeding) until this time
 
     [Header("Feeding sprite")]
     [SerializeField] Sprite feedingSprite;
@@ -23,10 +24,31 @@ public class GrandmaInteractable : MonoBehaviour
             baseSprite = spriteRenderer.sprite;
     }
 
+    public bool IsBusy => Time.time < busyUntil;
+
+    void SetBusyFor(float seconds)
+    {
+        busyUntil = Time.time + Mathf.Max(0f, seconds);
+    }
+
+    float GetEatingTimeForCat(string catId)
+    {
+        if (string.IsNullOrEmpty(catId)) return 2f;
+        var yardCats = FindObjectsByType<YardCat>(FindObjectsSortMode.None);
+        foreach (var cat in yardCats)
+        {
+            if (cat.CatId == catId) return cat.EatingTime;
+        }
+        return 2f;
+    }
+
     public void OnPlayerInteract(CatPlayerController player)
     {
         if (player == null) return;
         if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
+
+        // Grandma is busy feeding another cat - can't feed now (no fed, no message)
+        if (IsBusy) return;
 
         // Store the disguise ID before trying to feed (for marking YardCat)
         string disguiseId = player.CurrentDisguiseId;
@@ -70,6 +92,9 @@ public class GrandmaInteractable : MonoBehaviour
                 // Mark the corresponding yard cat as fed (visual indicator)
                 MarkYardCatAsFed(disguiseId);
                 
+                // Grandma is busy for this cat's eating time
+                SetBusyFor(GetEatingTimeForCat(disguiseId));
+                
                 // Clear player's disguise (grandma remembers this cat now)
                 player.ClearDisguise();
             }
@@ -95,6 +120,9 @@ public class GrandmaInteractable : MonoBehaviour
         if (cat == null || cat.IsFed) return;
         if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
 
+        // Grandma is busy - yard cat returns to place normally, not fed, no message
+        if (IsBusy) return;
+
         // Show feeding sprite
         ShowSprite(0);
 
@@ -110,6 +138,9 @@ public class GrandmaInteractable : MonoBehaviour
             GameManager.Instance.FeedYardCat(cat.CatId);
         
         cat.MarkAsFed();
+
+        // Grandma is busy for this cat's eating time
+        SetBusyFor(cat.EatingTime);
     }
 
     void ShowSprite(int sprite_mode) // 0 = feeding, 1 = angry
