@@ -45,6 +45,12 @@ public class GameManager : MonoBehaviour
         fedCats.Clear();
         gameOver = false;
         gameWon = false;
+
+        // Start background music looping for the main game scene
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.ChangeMusic(AudioManager.SoundType.Background);
+        }
     }
 
     public void SetDisguise(string catId)

@@ -91,8 +91,9 @@ public class AudioManager : MonoBehaviour
             _musicSource = container.AddComponent<AudioSource>();
             _musicSource.loop = true;
         }
- 
+
         _musicSource.clip = track.Clip;
+        _musicSource.volume = track.Volume;
         _musicSource.Play();
     }
 }
