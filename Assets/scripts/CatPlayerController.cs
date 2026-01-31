@@ -16,6 +16,12 @@ public class CatPlayerController : MonoBehaviour
     [SerializeField] float interactRadius = 2f;
     [SerializeField] LayerMask interactLayerMask = -1;
     [SerializeField] bool showInteractRadius = true;  // Show radius in editor
+    
+    // [Header("Bounds")]
+    private float minX = -25.3f;
+    private float maxX = 25.6f;
+    private float minY = -16f;
+    private float maxY = 18f;
 
     InputAction interactAction;
     InputAction moveAction;
@@ -62,6 +68,11 @@ public class CatPlayerController : MonoBehaviour
             Vector2 move = moveAction.ReadValue<Vector2>();
             Vector3 delta = new Vector3(move.x, move.y, 0f) * moveSpeed * Time.deltaTime;
             transform.position += delta;
+
+            Vector3 pos = transform.position;
+            pos.x = Mathf.Clamp(pos.x, minX, maxX);
+            pos.y = Mathf.Clamp(pos.y, minY, maxY);
+            transform.position = pos;
 
             // Animation: set IsMoving parameter and track idle time
             bool isMoving = move.sqrMagnitude > 0.01f;

@@ -24,7 +24,7 @@ public class YardCatAnimator : MonoBehaviour
     [SerializeField] float minWanderTime = 2f;
     [SerializeField] float maxWanderTime = 5f;
     [SerializeField] Transform grandmaTransform;     // Assign Grandma in Inspector
-    [SerializeField] float approachGrandmaChance = 0.2f;  // 20% chance to go to Grandma
+    private float approachGrandmaChance = 0.7f;  // 70% chance to go to Grandma
     [SerializeField] float grandmaFeedDistance = 1.5f;    // How close to get to Grandma
 
     SpriteRenderer spriteRenderer;
@@ -45,6 +45,7 @@ public class YardCatAnimator : MonoBehaviour
     float wanderTimer;
     bool isWandering;
     bool isApproachingGrandma;
+    bool isGoingAwayFromGrandma;
     YardCat yardCat;
 
     enum CatState { Idle, Laying, Sleeping, GettingUp, Walking }
@@ -259,7 +260,7 @@ public class YardCatAnimator : MonoBehaviour
 
     void UpdateMovement()
     {
-        if (!isWandering && !isApproachingGrandma) return;
+        if (!isWandering && !isApproachingGrandma && !isGoingAwayFromGrandma) return;
         if (currentState != CatState.Walking) return;
 
         // Move toward target
@@ -270,9 +271,9 @@ public class YardCatAnimator : MonoBehaviour
         if (spriteRenderer != null)
         {
             if (direction.x < -0.1f)
-                spriteRenderer.flipX = false;
-            else if (direction.x > 0.1f)
                 spriteRenderer.flipX = true;
+            else if (direction.x > 0.1f)
+                spriteRenderer.flipX = false;
         }
 
         // Check if reached target
@@ -286,6 +287,13 @@ public class YardCatAnimator : MonoBehaviour
                 OnReachedGrandma();
             }
         }
+        else if (isGoingAwayFromGrandma)
+        {
+            if (distanceToTarget < 1)
+            {
+                OnReachedStartPosition();
+            }
+        }
         else
         {
             // Regular wandering - reached target
@@ -297,7 +305,7 @@ public class YardCatAnimator : MonoBehaviour
 
         // Timeout for wandering
         wanderTimer -= Time.deltaTime;
-        if (wanderTimer <= 0)
+        if (!isGoingAwayFromGrandma && wanderTimer <= 0)
         {
             StopWandering();
         }
@@ -305,14 +313,15 @@ public class YardCatAnimator : MonoBehaviour
 
     void StartWandering()
     {
-        // Don't wander if already fed
-        if (yardCat != null && yardCat.IsFed) return;
+        // Don't wander if already fed, unless to go away from grandma
+        if (yardCat != null && yardCat.IsFed && !isGoingAwayFromGrandma) return;
 
         isWandering = true;
         isApproachingGrandma = false;
 
         // Decide: wander randomly or approach Grandma?
-        bool shouldApproachGrandma = grandmaTransform != null && 
+        bool shouldApproachGrandma = !isGoingAwayFromGrandma &&
+                                      grandmaTransform != null && 
                                       Random.value < approachGrandmaChance &&
                                       yardCat != null && !yardCat.IsFed;
 
@@ -323,6 +332,12 @@ public class YardCatAnimator : MonoBehaviour
             targetPosition = grandmaTransform.position;
             wanderTimer = 30f;  // Long timeout for approaching Grandma
             Debug.Log($"{gameObject.name} is going to Grandma!");
+        }
+        else if (isGoingAwayFromGrandma)
+        {
+            targetPosition = startPosition;
+            wanderTimer = 30f; // Long timeout for going away from Grandma
+            Debug.Log($"{gameObject.name} is going away from Grandma!");
         }
         else
         {
@@ -339,6 +354,7 @@ public class YardCatAnimator : MonoBehaviour
     {
         isWandering = false;
         isApproachingGrandma = false;
+        isGoingAwayFromGrandma = false;
         SetState(CatState.Idle);
         ScheduleNextIdleChange();
     }
@@ -358,6 +374,16 @@ public class YardCatAnimator : MonoBehaviour
             yardCat.MarkAsFed();
         }
 
+        isApproachingGrandma = false;
+
+        isGoingAwayFromGrandma = true;
+        targetPosition = startPosition;
+    }
+
+    void OnReachedStartPosition()
+    {
+        Debug.Log($"{gameObject.name} reached back to start position!");
+
         // Stop and go back to idle
         StopWandering();
     }
@@ -367,7 +393,7 @@ public class YardCatAnimator : MonoBehaviour
     {
         float rand = Random.value;
         
-        if (rand < 0.3f && walkSprites != null && walkSprites.Length > 0)
+        if (rand < 0.7f && walkSprites != null && walkSprites.Length > 0)
         {
             // 30% chance to wander
             StartWandering();
