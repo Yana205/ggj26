@@ -70,14 +70,6 @@ public class YardCat : MonoBehaviour
         if (player == null) return;
         if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
 
-        // Uninteractable when close to Grandma (cat is busy with her)
-        if (grandmaTransform != null)
-        {
-            float dist = Vector2.Distance(transform.position, grandmaTransform.position);
-            if (dist <= uninteractableNearGrandmaDistance)
-                return;
-        }
-
         // Player can disguise as ANY cat (even if fed) - the risk is on them!
         player.SetDisguise(catId, catColor, disguiseSprite);
         Debug.Log($"Player is now disguised as {catId}!");
