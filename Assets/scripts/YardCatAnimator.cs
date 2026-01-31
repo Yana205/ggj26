@@ -18,16 +18,7 @@ public class YardCatAnimator : MonoBehaviour
     [SerializeField] float baseMinRestTime = 5f;
     [SerializeField] float baseMaxRestTime = 12f;
 
-<<<<<<< HEAD
-    [Header("Movement")]
-    [SerializeField] float wanderSpeed = 1f;
-    [SerializeField] float wanderRadius = 3f;        // How far cat wanders from start
-    [SerializeField] float minWanderTime = 2f;
-    [SerializeField] float maxWanderTime = 5f;
-    [SerializeField] Transform grandmaTransform;     // Assign Grandma in Inspector
-    private float approachGrandmaChance = 0.7f;  // 70% chance to go to Grandma
-    [SerializeField] float grandmaFeedDistance = 1.5f;    // How close to get to Grandma
-=======
+
     [Header("Movement (modified by personality)")]
     [SerializeField] float baseWanderSpeed = 1f;
     [SerializeField] float wanderRadius = 3f;
@@ -58,7 +49,6 @@ public class YardCatAnimator : MonoBehaviour
     float maxWanderTime;
     float approachGrandmaChance;
     float wanderChance;  // Chance to wander vs rest
->>>>>>> master
 
     SpriteRenderer spriteRenderer;
     Sprite[] currentSprites;
@@ -417,15 +407,10 @@ public class YardCatAnimator : MonoBehaviour
         if (spriteRenderer != null)
         {
             if (direction.x < -0.1f)
-<<<<<<< HEAD
-                spriteRenderer.flipX = true;
-            else if (direction.x > 0.1f)
-                spriteRenderer.flipX = false;
-=======
                 spriteRenderer.flipX = true;   // Moving left - flip (or set false if sprite faces left)
             else if (direction.x > 0.1f)
                 spriteRenderer.flipX = false;  // Moving right - no flip (or set true if sprite faces left)
->>>>>>> master
+
         }
 
         // Check if reached target
@@ -549,14 +534,8 @@ public class YardCatAnimator : MonoBehaviour
     {
         float rand = Random.value;
         
-<<<<<<< HEAD
-        if (rand < 0.7f && walkSprites != null && walkSprites.Length > 0)
-=======
-        // Debug: uncomment to see decision making
-        // Debug.Log($"{gameObject.name}: rand={rand:F2}, wanderChance={wanderChance:F2}, hasWalkSprites={walkSprites != null && walkSprites.Length > 0}");
-        
         if (rand < wanderChance && walkSprites != null && walkSprites.Length > 0)
->>>>>>> master
+
         {
             // Chance to wander (varies by personality)
             StartWandering();
