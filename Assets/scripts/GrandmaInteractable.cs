@@ -21,7 +21,10 @@ public class GrandmaInteractable : MonoBehaviour
         if (string.IsNullOrEmpty(disguiseId))
         {
             if (speechBubble != null)
+            {
                 speechBubble.ShowNoDisguiseMessage();
+                AudioManager.Instance.Play(AudioManager.SoundType.AngryGrandma);
+            }
             return;
         }
 
