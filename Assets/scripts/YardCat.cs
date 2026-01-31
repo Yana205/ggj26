@@ -15,7 +15,7 @@ public class YardCat : MonoBehaviour
 
     [Header("Interaction")]
     [SerializeField] float uninteractableNearGrandmaDistance = 2f;  // Too close to Grandma = can't copy disguise
-    [SerializeField] float baseHungryAgainTime = 180f;  // 3 minutes until hungry again (base)
+    private float baseHungryAgainTime = 60f;  // 3 minutes until hungry again (base)
 
     
     public string CatId => catId;
