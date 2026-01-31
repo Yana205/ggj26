@@ -11,14 +11,7 @@ public class YardCat : MonoBehaviour
     
     [Header("Fed Indicator")]
     [SerializeField] float fedAlpha = 0.6f;  // Opacity when fed (subtle indicator)
-<<<<<<< HEAD
-    [SerializeField] float hungryAgainTime = 180f;  // 3 minutes until hungry again
-
-    [Header("Interaction")]
-    [SerializeField] float uninteractableNearGrandmaDistance = 2f;  // Too close to Grandma = can't copy disguise
-=======
     [SerializeField] float baseHungryAgainTime = 180f;  // 3 minutes until hungry again (base)
->>>>>>> master
     
     public string CatId => catId;
     public Color CatColor => catColor;
@@ -28,12 +21,8 @@ public class YardCat : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Color originalColor;
     float fedTimer;
-<<<<<<< HEAD
-    Transform grandmaTransform;
-=======
     float hungryAgainTime;
     float hungerMultiplier = 1f;
->>>>>>> master
 
     void Start()
     {
@@ -51,12 +40,6 @@ public class YardCat : MonoBehaviour
             originalColor = spriteRenderer.color;
         }
 
-<<<<<<< HEAD
-        // Cache Grandma for "near grandma" uninteractable check
-        var grandma = FindFirstObjectByType<GrandmaInteractable>();
-        if (grandma != null)
-            grandmaTransform = grandma.transform;
-=======
         // Apply hunger multiplier to base time
         hungryAgainTime = baseHungryAgainTime * hungerMultiplier;
     }
@@ -66,7 +49,6 @@ public class YardCat : MonoBehaviour
     {
         hungerMultiplier = multiplier;
         hungryAgainTime = baseHungryAgainTime * hungerMultiplier;
->>>>>>> master
     }
 
     void Update()
