@@ -11,7 +11,7 @@ public class YardCat : MonoBehaviour
     
     [Header("Fed Indicator")]
     [SerializeField] float fedAlpha = 0.6f;  // Opacity when fed (subtle indicator)
-    [SerializeField] float hungryAgainTime = 180f;  // 3 minutes until hungry again
+    [SerializeField] float baseHungryAgainTime = 180f;  // 3 minutes until hungry again (base)
     
     public string CatId => catId;
     public Color CatColor => catColor;
@@ -21,6 +21,8 @@ public class YardCat : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Color originalColor;
     float fedTimer;
+    float hungryAgainTime;
+    float hungerMultiplier = 1f;
 
     void Start()
     {
@@ -37,6 +39,16 @@ public class YardCat : MonoBehaviour
         {
             originalColor = spriteRenderer.color;
         }
+
+        // Apply hunger multiplier to base time
+        hungryAgainTime = baseHungryAgainTime * hungerMultiplier;
+    }
+
+    // Called by YardCatAnimator when assigning personality
+    public void SetHungerMultiplier(float multiplier)
+    {
+        hungerMultiplier = multiplier;
+        hungryAgainTime = baseHungryAgainTime * hungerMultiplier;
     }
 
     void Update()
