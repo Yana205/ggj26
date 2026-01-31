@@ -23947,28 +23947,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   AllSounds:
   - Type: 0
-    Clip: {fileID: 0}
-    Volume: 0
+    Clip: {fileID: 8300000, guid: 86578b9557085487eac9afe384fc970d, type: 3}
+    Volume: 1
     Source: {fileID: 0}
   - Type: 1
-    Clip: {fileID: 0}
-    Volume: 0
+    Clip: {fileID: 8300000, guid: a7514befd6cf84a2c836f5ce3e76d4d1, type: 3}
+    Volume: 1
     Source: {fileID: 0}
   - Type: 2
-    Clip: {fileID: 0}
-    Volume: 0
+    Clip: {fileID: 8300000, guid: 487017b0f688c4007be65f0bad934ee6, type: 3}
+    Volume: 1
     Source: {fileID: 0}
   - Type: 3
-    Clip: {fileID: 0}
-    Volume: 0
+    Clip: {fileID: 8300000, guid: 2255f4a9b41b94e1eab565c0cae4eeb4, type: 3}
+    Volume: 1
     Source: {fileID: 0}
   - Type: 4
-    Clip: {fileID: 0}
-    Volume: 0
+    Clip: {fileID: 8300000, guid: 8f89f640e428d42fc801c89865facb85, type: 3}
+    Volume: 1
     Source: {fileID: 0}
   - Type: 5
-    Clip: {fileID: 0}
-    Volume: 0
+    Clip: {fileID: 8300000, guid: e96393478c3e84c14ae93e8b2561481c, type: 3}
+    Volume: 1
     Source: {fileID: 0}
 --- !u!4 &1465076749
 Transform:
