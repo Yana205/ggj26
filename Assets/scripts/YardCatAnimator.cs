@@ -305,7 +305,7 @@ public class YardCatAnimator : MonoBehaviour
 
         // Timeout for wandering
         wanderTimer -= Time.deltaTime;
-        if (!isGoingAwayFromGrandma && wanderTimer <= 0)
+        if (wanderTimer <= 0)
         {
             StopWandering();
         }
@@ -333,18 +333,16 @@ public class YardCatAnimator : MonoBehaviour
             wanderTimer = 30f;  // Long timeout for approaching Grandma
             Debug.Log($"{gameObject.name} is going to Grandma!");
         }
-        else if (isGoingAwayFromGrandma)
-        {
-            targetPosition = startPosition;
-            wanderTimer = 30f; // Long timeout for going away from Grandma
-            Debug.Log($"{gameObject.name} is going away from Grandma!");
-        }
         else
         {
             // Random wander within radius
             Vector2 randomOffset = Random.insideUnitCircle * wanderRadius;
             targetPosition = startPosition + new Vector3(randomOffset.x, randomOffset.y, 0);
             wanderTimer = Random.Range(minWanderTime, maxWanderTime);
+            if (isGoingAwayFromGrandma)
+            {
+                Debug.Log($"{gameObject.name} is going away from Grandma!");        
+            }
         }
 
         SetState(CatState.Walking);
@@ -354,7 +352,6 @@ public class YardCatAnimator : MonoBehaviour
     {
         isWandering = false;
         isApproachingGrandma = false;
-        isGoingAwayFromGrandma = false;
         SetState(CatState.Idle);
         ScheduleNextIdleChange();
     }
@@ -378,6 +375,7 @@ public class YardCatAnimator : MonoBehaviour
 
         isGoingAwayFromGrandma = true;
         targetPosition = startPosition;
+        StopWandering();
     }
 
     void OnReachedStartPosition()
