@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7bc7cf6efbdf84e46b349a5eb6bf44ef
+guid: 36f3e4f438ebb40a4b315bc057140cb3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3256257637687426740
-    second: PlayerV1_0
+      213: 1819816676566539996
+    second: Petit_Gran_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerV1_0
+      name: Petit_Gran_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 30
         y: 0
-        width: 2048
-        height: 2048
+        width: 77
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4bef28fa11d803d20800000000000000
-      internalID: 3256257637687426740
+      spriteID: cde941320a9414910800000000000000
+      internalID: 1819816676566539996
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PlayerV1_0: 3256257637687426740
+      Petit_Gran_0: 1819816676566539996
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
