@@ -7,13 +7,15 @@ public class CatPlayerController : MonoBehaviour
     [SerializeField] InputActionAsset inputActions;
 
     [Header("Disguise")]
-    [SerializeField] bool isDisguised;
+    [SerializeField] Color originalColor = Color.white;
+    string currentDisguiseId = "";
 
     [SerializeField] float moveSpeed = 5f;
 
     [Header("Interaction")]
     [SerializeField] float interactRadius = 2f;
     [SerializeField] LayerMask interactLayerMask = -1;
+    [SerializeField] bool showInteractRadius = true;  // Show radius in editor
 
     InputAction interactAction;
     InputAction moveAction;
@@ -23,7 +25,8 @@ public class CatPlayerController : MonoBehaviour
     SpriteRenderer spriteRenderer;
     float idleTime;
 
-    public bool IsDisguised => isDisguised;
+    public bool IsDisguised => !string.IsNullOrEmpty(currentDisguiseId);
+    public string CurrentDisguiseId => currentDisguiseId;
 
     void Start()
     {
@@ -95,18 +98,96 @@ public class CatPlayerController : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        // Log a message to the console
+        Debug.Log("Collision detected with " + collision.gameObject.name);
+
+        // You can access the other object's collider, rigidbody, etc.
+        Collider otherCollider = collision.collider;
+
+        // Example: Destroy the other object upon collision
+        // Destroy(collision.gameObject);
+    }
+
     void TryInteract()
     {
         var hits = Physics2D.OverlapCircleAll(transform.position, interactRadius, interactLayerMask);
+        
+        // DEBUG: Log how many colliders were found
+        Debug.Log($"[Interact] Found {hits.Length} colliders within radius {interactRadius}");
+        
         foreach (var hit in hits)
         {
+            // DEBUG: Log each hit
+            Debug.Log($"[Interact] Hit: {hit.gameObject.name} (Layer: {hit.gameObject.layer})");
+            
             if (hit.gameObject == gameObject) continue;
+            
+            // Check for Grandma
             var grandma = hit.GetComponent<GrandmaInteractable>();
             if (grandma != null)
             {
+                Debug.Log("[Interact] Found Grandma - interacting!");
                 grandma.OnPlayerInteract(this);
                 return;
             }
+
+            // Check for Yard Cat (to copy disguise)
+            var yardCat = hit.GetComponent<YardCat>();
+            if (yardCat != null)
+            {
+                Debug.Log($"[Interact] Found YardCat {yardCat.CatId} - interacting!");
+                yardCat.OnPlayerInteract(this);
+                return;
+            }
+            
+            // DEBUG: Object has no interactable script
+            Debug.Log($"[Interact] {hit.gameObject.name} has no GrandmaInteractable or YardCat script!");
+        }
+    }
+
+    public void SetDisguise(string catId, Color color, Sprite sprite = null)
+    {
+        currentDisguiseId = catId;
+        
+        // Change player color to match disguise
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = color;
+        }
+
+        // Notify GameManager
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetDisguise(catId);
+        }
+    }
+
+    public void ClearDisguise()
+    {
+        currentDisguiseId = "";
+        
+        // Reset to original color
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = originalColor;
+        }
+
+        // Notify GameManager
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.ClearDisguise();
+        }
+    }
+
+    // Draw interact radius in Scene view (helps with debugging)
+    void OnDrawGizmosSelected()
+    {
+        if (showInteractRadius)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, interactRadius);
         }
     }
 }
