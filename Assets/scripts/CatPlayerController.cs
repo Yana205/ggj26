@@ -18,10 +18,10 @@ public class CatPlayerController : MonoBehaviour
     [SerializeField] bool showInteractRadius = true;  // Show radius in editor
     
     // [Header("Bounds")]
-    private float minX = -25.3f;
-    private float maxX = 25.6f;
-    private float minY = -16f;
-    private float maxY = 18f;
+    private float minX = -12f;
+    private float maxX = 21f;
+    private float minY = -8.5f;
+    private float maxY = 10f;
 
     InputAction interactAction;
     InputAction moveAction;
