@@ -133,6 +133,7 @@ public class GameManager : MonoBehaviour
         OnGameOver?.Invoke(reason);
         OnGameStateChanged?.Invoke();
         SceneManager.LoadScene("LoseScene", LoadSceneMode.Single);
+        AudioManager.Instance.Play(AudioManager.SoundType.LoseGame);
     }
 
     public void TriggerWin()
@@ -143,6 +144,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("YOU WIN! Cat is fully satisfied!");
         OnGameWon?.Invoke();
         OnGameStateChanged?.Invoke();
+        AudioManager.Instance.Play(AudioManager.SoundType.WinGame);
         SceneManager.LoadScene("WinScene", LoadSceneMode.Single);
     }
 
