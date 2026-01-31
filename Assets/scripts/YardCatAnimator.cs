@@ -25,7 +25,7 @@ public class YardCatAnimator : MonoBehaviour
     [SerializeField] float baseMinWanderTime = 2f;
     [SerializeField] float baseMaxWanderTime = 5f;
     [SerializeField] Transform grandmaTransform;
-    [SerializeField] float baseApproachGrandmaChance = 0.2f;
+    [SerializeField] float baseApproachGrandmaChance = 0.7f;
     [SerializeField] float grandmaFeedDistance = 1.5f;
 
     [Header("Personality (assigned randomly at start)")]
@@ -91,8 +91,27 @@ public class YardCatAnimator : MonoBehaviour
         }
         ApplyPersonalityValues();
 
+        float minInitDelay = 0;
+        float maxInitDelay = 10;
+        switch (personality)
+        {
+            case CatPersonality.Lazy:
+            minInitDelay = 2f;
+            maxInitDelay = 7f;
+            break;
+
+            case CatPersonality.Balanced:
+            minInitDelay = 1f;
+            maxInitDelay = 5f;
+            break;
+
+            case CatPersonality.Active:
+            minInitDelay = 0f;
+            maxInitDelay = 3f;
+            break;
+        }
         // Random initial delay (0-10 seconds) so cats don't all start acting at once
-        initialDelay = Random.Range(0f, 10f);
+        initialDelay = Random.Range(minInitDelay, maxInitDelay);
         hasStarted = false;
         
         // Start with idle
@@ -157,8 +176,8 @@ public class YardCatAnimator : MonoBehaviour
                 wanderSpeed = baseWanderSpeed * 0.7f;
                 minWanderTime = baseMinWanderTime * 0.5f;
                 maxWanderTime = baseMaxWanderTime * 0.5f;
-                approachGrandmaChance = baseApproachGrandmaChance * 0.5f;  // Less likely to go to Grandma
-                wanderChance = 0.15f;  // 15% chance to wander (mostly rests)
+                approachGrandmaChance = baseApproachGrandmaChance;  // Less likely to go to Grandma
+                wanderChance = 0.3f;  // 15% chance to wander (mostly rests)
                 // Adjust hunger timer on YardCat
                 if (yardCat != null) yardCat.SetHungerMultiplier(1.5f);  // Takes 50% longer to get hungry
                 break;
@@ -172,8 +191,8 @@ public class YardCatAnimator : MonoBehaviour
                 wanderSpeed = baseWanderSpeed * 1.3f;
                 minWanderTime = baseMinWanderTime * 1.5f;
                 maxWanderTime = baseMaxWanderTime * 1.5f;
-                approachGrandmaChance = baseApproachGrandmaChance * 1.5f;  // More likely to go to Grandma
-                wanderChance = 0.5f;  // 50% chance to wander
+                approachGrandmaChance = baseApproachGrandmaChance;  // More likely to go to Grandma
+                wanderChance = 0.9f;  // 50% chance to wander
                 // Adjust hunger timer on YardCat
                 if (yardCat != null) yardCat.SetHungerMultiplier(0.6f);  // Gets hungry 40% faster
                 break;
@@ -190,7 +209,7 @@ public class YardCatAnimator : MonoBehaviour
                 minWanderTime = baseMinWanderTime * variance;
                 maxWanderTime = baseMaxWanderTime * variance;
                 approachGrandmaChance = baseApproachGrandmaChance;
-                wanderChance = 0.3f;  // 30% chance to wander
+                wanderChance = 0.7f;  // 30% chance to wander
                 // Default hunger
                 if (yardCat != null) yardCat.SetHungerMultiplier(1f);
                 break;
