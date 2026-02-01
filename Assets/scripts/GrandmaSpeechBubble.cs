@@ -105,12 +105,49 @@ public class GrandmaSpeechBubble : MonoBehaviour
         QueueMessage(message);
     }
 
+    /// <summary>Shows message instantly, clearing queue and overriding any current text.</summary>
+    public void ShowMessageImmediately(string message)
+    {
+        if (speechText == null || bubbleContainer == null) return;
+
+        if (currentMessageCoroutine != null)
+        {
+            StopCoroutine(currentMessageCoroutine);
+            currentMessageCoroutine = null;
+        }
+        messageQueue.Clear();
+
+        speechText.text = message;
+        bubbleContainer.SetActive(true);
+        if (canvasGroup != null) canvasGroup.alpha = 1f;
+        isShowingMessage = true;
+        currentMessageCoroutine = StartCoroutine(ImmediateMessageRoutine());
+    }
+
+    IEnumerator ImmediateMessageRoutine()
+    {
+        yield return new WaitForSeconds(messageDisplayTime);
+        if (canvasGroup != null)
+        {
+            float elapsed = 0;
+            while (elapsed < fadeTime)
+            {
+                elapsed += Time.deltaTime;
+                canvasGroup.alpha = 1 - (elapsed / fadeTime);
+                yield return null;
+            }
+        }
+        bubbleContainer.SetActive(false);
+        isShowingMessage = false;
+        currentMessageCoroutine = null;
+    }
+
     void QueueMessage(string message)
     {
         messageQueue.Enqueue(message);
         if (!isShowingMessage)
         {
-            StartCoroutine(ProcessMessageQueue());
+            currentMessageCoroutine = StartCoroutine(ProcessMessageQueue());
         }
     }
 
@@ -125,6 +162,7 @@ public class GrandmaSpeechBubble : MonoBehaviour
         }
 
         isShowingMessage = false;
+        currentMessageCoroutine = null;
     }
 
     IEnumerator ShowMessageRoutine(string message)

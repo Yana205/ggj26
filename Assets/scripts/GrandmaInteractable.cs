@@ -52,7 +52,12 @@ public class GrandmaInteractable : MonoBehaviour
         if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
 
         // Grandma is busy feeding another cat - can't feed now (no fed, no message)
-        if (IsBusy) return;
+        if (IsBusy)
+        {
+            if (speechBubble != null)
+                speechBubble.ShowMessageImmediately("Not now, I'm feeding someone else");
+            return;
+        }
 
         // Store the disguise ID before trying to feed (for marking YardCat)
         string disguiseId = player.CurrentDisguiseId;
