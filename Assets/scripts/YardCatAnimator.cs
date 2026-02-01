@@ -25,7 +25,6 @@ public class YardCatAnimator : MonoBehaviour
     private float baseMinWanderTime = 2f;
     private float baseMaxWanderTime = 5f;
     [SerializeField] Transform grandmaTransform;
-    private float baseApproachGrandmaChance = 0.7f;
     private float grandmaFeedDistance = 1.5f;
 
     [Header("Personality (assigned randomly at start)")]
@@ -48,7 +47,6 @@ public class YardCatAnimator : MonoBehaviour
     float wanderSpeed;
     float minWanderTime;
     float maxWanderTime;
-    float approachGrandmaChance;
     float wanderChance;  // Chance to wander vs rest
 
     SpriteRenderer spriteRenderer;
@@ -154,7 +152,6 @@ public class YardCatAnimator : MonoBehaviour
                 wanderSpeed = baseWanderSpeed * 0.7f;
                 minWanderTime = baseMinWanderTime * 0.5f;
                 maxWanderTime = baseMaxWanderTime * 0.5f;
-                approachGrandmaChance = baseApproachGrandmaChance;  // Less likely to go to Grandma
                 wanderChance = 0.3f;  // 30% chance to wander (mostly rests)
                 // Adjust hunger timer on YardCat
                 if (yardCat != null) yardCat.SetHungerMultiplier(1.5f);  // Takes 50% longer to get hungry
@@ -169,7 +166,6 @@ public class YardCatAnimator : MonoBehaviour
                 wanderSpeed = baseWanderSpeed * 1.3f;
                 minWanderTime = baseMinWanderTime * 1.5f;
                 maxWanderTime = baseMaxWanderTime * 1.5f;
-                approachGrandmaChance = baseApproachGrandmaChance;  // More likely to go to Grandma
                 wanderChance = 0.9f;  // 90% chance to wander
                 // Adjust hunger timer on YardCat
                 if (yardCat != null) yardCat.SetHungerMultiplier(0.6f);  // Gets hungry 40% faster
@@ -183,7 +179,6 @@ public class YardCatAnimator : MonoBehaviour
                 wanderSpeed = baseWanderSpeed * 1.6f;
                 minWanderTime = baseMinWanderTime * 1.5f;
                 maxWanderTime = baseMaxWanderTime * 1.5f;
-                approachGrandmaChance = baseApproachGrandmaChance;  // More likely to go to Grandma
                 wanderChance = 0.9f;  // 90% chance to wander
                 if (yardCat != null) yardCat.SetHungerMultiplier(0.6f);
                 break;
@@ -199,7 +194,6 @@ public class YardCatAnimator : MonoBehaviour
                 wanderSpeed = baseWanderSpeed * variance;
                 minWanderTime = baseMinWanderTime * variance;
                 maxWanderTime = baseMaxWanderTime * variance;
-                approachGrandmaChance = baseApproachGrandmaChance;
                 wanderChance = 0.7f;  // 70% chance to wander
                 // Default hunger
                 if (yardCat != null) yardCat.SetHungerMultiplier(1f);
@@ -450,10 +444,10 @@ public class YardCatAnimator : MonoBehaviour
         isWandering = true;
         isApproachingGrandma = false;
 
-        // Decide: wander randomly or approach Grandma?
+        // Either go away from grandma (if recently fed), go to her (if hungry) or wander randomly
         bool shouldApproachGrandma = !isGoingAwayFromGrandma &&
                                       grandmaTransform != null && 
-                                      Random.value < approachGrandmaChance &&
+                                      !yardCat.IsFed &&
                                       yardCat != null && !yardCat.IsFed;
 
         if (shouldApproachGrandma)
@@ -580,7 +574,7 @@ public class YardCatAnimator : MonoBehaviour
         Debug.Log($"Personality: {personality}");
         Debug.Log($"State: {currentState}");
         Debug.Log($"Is Wandering: {isWandering}, Approaching Grandma: {isApproachingGrandma}");
-        Debug.Log($"Wander Chance: {wanderChance:F2}, Approach Grandma Chance: {approachGrandmaChance:F2}");
+        Debug.Log($"Wander Chance: {wanderChance:F2}");
         Debug.Log($"Grandma Transform: {(grandmaTransform != null ? grandmaTransform.name : "NULL")}");
         Debug.Log($"Walk Sprites: {(walkSprites != null ? walkSprites.Length.ToString() : "NULL")}");
         Debug.Log($"YardCat IsFed: {(yardCat != null ? yardCat.IsFed.ToString() : "NULL")}");
