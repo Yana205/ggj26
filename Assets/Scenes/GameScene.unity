@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 104234893}
   - component: {fileID: 104234894}
   - component: {fileID: 104234895}
+  - component: {fileID: 104234896}
   m_Layer: 0
   m_Name: Grandma
   m_TagString: Untagged
@@ -449,6 +450,19 @@ MonoBehaviour:
   - I wonder who's hungry...
   - Let me remember who I fed...
   - '*humming*'
+--- !u!114 &104234896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104234890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bf14f4f082256b46af4ae8415e33e72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GrandmaController
+  state: 0
 --- !u!1 &288564868
 GameObject:
   m_ObjectHideFlags: 0
@@ -24290,7 +24304,7 @@ MonoBehaviour:
     Volume: 0.4
     Source: {fileID: 0}
   - Type: 1
-    Clip: {fileID: 8300000, guid: a7514befd6cf84a2c836f5ce3e76d4d1, type: 3}
+    Clip: {fileID: 8300000, guid: 393452acbd7d3da4999f5d641d8a7c57, type: 3}
     Volume: 0.7
     Source: {fileID: 0}
   - Type: 2
@@ -25585,7 +25599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4567793446749023697, guid: 24ce180517bf44c63a66315ef4b8432f, type: 3}
       propertyPath: depletionPerSecond
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8523900424034157502, guid: 24ce180517bf44c63a66315ef4b8432f, type: 3}
       propertyPath: m_Radius

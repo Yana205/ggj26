@@ -14,6 +14,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] string currentDisguise = "";
     [SerializeField] List<string> fedCats = new List<string>();
 
+    [Header("MapBounds")]
+    public static float minX = -12f;
+    public static float maxX = 21f;
+    public static float minY = -8.5f;
+    public static float maxY = 10f;
+
     bool gameOver;
     bool gameWon;
 
