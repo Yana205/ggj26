@@ -39,6 +39,6 @@ public class HungerController : MonoBehaviour
 
     public void GetFed()
     {
-        currentHunger = maxHunger;
+        currentHunger = Mathf.Clamp(currentHunger + 30f, 0f, maxHunger);;
     }
 }
