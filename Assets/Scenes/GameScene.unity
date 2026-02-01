@@ -25599,7 +25599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4567793446749023697, guid: 24ce180517bf44c63a66315ef4b8432f, type: 3}
       propertyPath: depletionPerSecond
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8523900424034157502, guid: 24ce180517bf44c63a66315ef4b8432f, type: 3}
       propertyPath: m_Radius
