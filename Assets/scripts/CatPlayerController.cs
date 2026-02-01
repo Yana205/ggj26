@@ -16,12 +16,6 @@ public class CatPlayerController : MonoBehaviour
     [SerializeField] float interactRadius = 2f;
     [SerializeField] LayerMask interactLayerMask = -1;
     [SerializeField] bool showInteractRadius = true;  // Show radius in editor
-    
-    // [Header("Bounds")]
-    private float minX = -12f;
-    private float maxX = 21f;
-    private float minY = -8.5f;
-    private float maxY = 10f;
 
     InputAction interactAction;
     InputAction moveAction;
@@ -70,8 +64,8 @@ public class CatPlayerController : MonoBehaviour
             transform.position += delta;
 
             Vector3 pos = transform.position;
-            pos.x = Mathf.Clamp(pos.x, minX, maxX);
-            pos.y = Mathf.Clamp(pos.y, minY, maxY);
+            pos.x = Mathf.Clamp(pos.x, GameManager.minX, GameManager.maxX);
+            pos.y = Mathf.Clamp(pos.y, GameManager.minY, GameManager.maxY);
             transform.position = pos;
 
             // Animation: set IsMoving parameter and track idle time
