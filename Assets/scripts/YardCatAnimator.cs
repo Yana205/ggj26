@@ -180,7 +180,7 @@ public class YardCatAnimator : MonoBehaviour
                 minWanderTime = baseMinWanderTime * 1.5f;
                 maxWanderTime = baseMaxWanderTime * 1.5f;
                 wanderChance = 0.9f;  // 90% chance to wander
-                if (yardCat != null) yardCat.SetHungerMultiplier(0.6f);
+                if (yardCat != null) yardCat.SetHungerMultiplier(0.4f); // Petit become hungry after only 40% of the normal time
                 break;
 
             case CatPersonality.Balanced:
