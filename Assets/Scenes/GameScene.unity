@@ -23862,8 +23862,8 @@ MonoBehaviour:
   frameRate: 8
   transitionDelay: 0.5
   grandmaTransform: {fileID: 0}
-  randomizePersonality: 1
-  personality: 0
+  randomizePersonality: 0
+  personality: 1
 --- !u!61 &1301550966
 BoxCollider2D:
   m_ObjectHideFlags: 0
