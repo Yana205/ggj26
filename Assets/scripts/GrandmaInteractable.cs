@@ -69,6 +69,18 @@ public class GrandmaInteractable : MonoBehaviour
             return;
         }
 
+        // Player trying to disguise as Petit - reject (player is too big!)
+        if (disguiseId == "Petit")
+        {
+            if (speechBubble != null)
+            {
+                speechBubble.ShowCustomMessage("...but Petit is smaller..");
+                AudioManager.Instance.Play(AudioManager.SoundType.AngryGrandma);
+            }
+            ShowSprite(1);  // Angry sprite
+            return;
+        }
+
         // Check if already fed (will trigger game over)
         bool alreadyFed = GameManager.Instance != null && GameManager.Instance.IsCatFed(disguiseId);
 
