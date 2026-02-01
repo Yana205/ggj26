@@ -6,6 +6,7 @@ public class GrandmaInteractable : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Sprite baseSprite;
     Coroutine spriteRoutine;
+    GrandmaController grandma_controller;
 
     private float spriteDuration = 2f;  // Used for angry sprite; feeding uses cat's eating time
     float busyUntil;  // Grandma is busy (feeding) until this time
@@ -22,6 +23,7 @@ public class GrandmaInteractable : MonoBehaviour
 
     void Start()
     {
+        grandma_controller = FindFirstObjectByType<GrandmaController>();
         speechBubble = GetComponent<GrandmaSpeechBubble>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
@@ -33,6 +35,7 @@ public class GrandmaInteractable : MonoBehaviour
     void SetBusyFor(float seconds)
     {
         busyUntil = Time.time + Mathf.Max(0f, seconds);
+        grandma_controller.startFeeding(seconds);
     }
 
     float GetEatingTimeForCat(string catId)

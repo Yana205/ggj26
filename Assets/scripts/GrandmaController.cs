@@ -36,6 +36,13 @@ public class GrandmaController : MonoBehaviour
         Shooing
     }
 
+    public void startFeeding(float time)
+    {
+        Debug.Log($"GRANDMA FEEDING FOR {time} SECONDS!");
+        setGrandmaState(GrandmaState.Feeding);
+        feedingTimer = time;
+    }
+
     // Check not busy, then set state to wandering and randomize target position and start timer.
     public void startWandering()
     {
@@ -125,6 +132,17 @@ public class GrandmaController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GrandmaState.Feeding == state)
+        {
+            if(feedingTimer <= 0)
+            {
+                state = GrandmaState.Idle;
+            }
+            else
+            {
+                feedingTimer -= Time.deltaTime;
+            }
+        }
         UpdateMovement();
     }
 }
